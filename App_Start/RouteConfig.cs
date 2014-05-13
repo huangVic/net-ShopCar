@@ -16,7 +16,7 @@ namespace ShopCar
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Product", action = "ProList", id = UrlParameter.Optional }
+                defaults: new { controller = "Frontend", action = "Product", id = UrlParameter.Optional }
             );
         }
     }
