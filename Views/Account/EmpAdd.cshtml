@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "EmpAdd";
+    Layout = "~/Views/Shared/_LayoutEmp.cshtml";
+}
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+
+    <div class="panel panel-primary" style="margin-left:10px; margin-right:10px" ng-controller="empAddCtrl">
+    <div class="panel-heading" style="font-size:16px">新增登入帳號</div>
+    <div class="panel-body">
+        <form id="myFormAdd" action="@Url.Action("EmpCreate")" method="POST">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="inputeditempName">帳號</label>
+                        <input type="text" class="form-control validate[required]" id="editempID" name="emp_id" value="">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputeditempName">姓名</label>
+                        <input type="text" class="form-control validate[required]" id="editempName" name="emp_name" value="">
+                    </div>
+                    <div class="col-lg-5">
+                        <label for="inputEditEmpEmail">電子郵件</label>
+                        <input type="text" class="form-control validate[required,custom[email]]" id="editEmpEmail" name="emp_email" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="inputeditEmpTel">聯絡電話</label>
+                        <input type="text" class="form-control validate[required]" id="editEmpTel" name="emp_tel" value="">
+                    </div>
+                    <div class="col-lg-2">
+                        <label for="inputEmpTitle">帳號權限</label>
+                        <select ng-model="empRole" ng-options="member for member in empRoles" class="form-control col-lg-2  validate[required]" name="emp_title">
+                            <option value="">--請選擇權限--</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputeditloginPass">密碼</label>
+                        <input type="password" class="form-control validate[required]" id="editEmploginPass" name="login_password" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align:right">
+                   <hr>
+                    <button type="button" class="btn btn-default" ng-click="toEmplist()"  >取消 </button>
+                    <button type="button" class="btn btn-danger" ng-click="empCreateSubmit()">新增</button>
+                </div>
+            </div>
+                   
+</form>
+    </div>
+
+</div>
+
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>

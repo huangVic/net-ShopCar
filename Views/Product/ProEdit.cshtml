@@ -1,0 +1,301 @@
+﻿<link href="../css/pro-add.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+<link href="../css/icheck/all.css" rel="stylesheet">
+
+<!-- =========================== File Uploader Start ======================================================================= -->
+<div class="table-responsive" id="div-form-edit" style="margin-top: 3px; margin-left:0px; margin-right:10px">
+    <div class="panel panel-primary">
+        <div class="panel-heading">更新產品內容</div>
+        <div class="panel-body">
+            <form id="myFormEdit" action="@Url.Action("ProUpdate")" method="POST">
+                <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                <!-- noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></!--noscript -->
+                <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="lableProductionNo">產品編號</label>
+                                    <input type="text" class="form-control validate[required]" id="inputProductionNo" name="proNo" placeholder="" value="@ViewData.Eval("proNo")">
+                                </div>
+                                <div class="col-sm-10">
+                                    <label for="lableProductionName">產品名稱</label>
+                                    <input type="text" class="form-control validate[required]" id="inputProductionName" name="proName" placeholder="" value="@ViewData.Eval("proName")">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="lableProductionPrice">產品價格</label>
+                                    <input type="text" class="form-control validate[required,custom[integer]]" id="inputProductPrice" name="proPrice" placeholder="" value="@ViewData.Eval("proPrice")">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="lableProductionSpecialPrice">產品特價</label>
+                                    <input type="text" class="form-control validate[custom[integer]]" id="inputProductSpecialPrice" name="proSpecialPrice" placeholder="" value="@ViewData.Eval("proSpecialPrice")">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="lableProductionClass">產品類別</label>
+                                    <input type="hidden" id="hiddenProClassId" value="@ViewData.Eval("proClassId")" />
+                                    <select class="form-control validate[required]" id="inputProductClassId" name="proClassId" >                                     
+                                           <option value="">-----</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="margin-top:25px">
+                                        @if (ViewData.Eval("proActive").ToString() == "on")
+                                        {
+                                           <input tabindex="1" type="checkbox" id="proActive" name="pro_active" checked>
+                                        } 
+                                        else
+                                        {
+                                            <input tabindex="1" type="checkbox" id="proActive" name="pro_active" >
+                                        }
+                                        <label for="input-1">啟用產品</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="lableProductionFeature">產品特徵</label>
+                                        <textarea class="form-control validate[required]" id="inputProductFeature" name="prodFeature" rows="6">@ViewData.Eval("prodFeature")</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="lableProductionDesc">產品描述</label>
+                                        <textarea class="form-control validate[required]" id="inputProductDesc" name="prodDesc" rows="8">@ViewData.Eval("prodDesc")</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-8" style="text-align:right">
+                                    <input type="hidden" id="appSer" name="appSer" value="@ViewData.Eval("appSer")" />
+                                    <button type="button" id="btn-submit" class="btn btn-info start">
+                                        <i class="glyphicon glyphicon-save"></i>&nbsp;
+                                        <span>更新產品</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-default btn-proDelete" data-toggle="modal" data-target="#myModal" style="background-color: #000; border-color: #fff; color:#fff">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span> 刪除產品</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<form id="fileupload" action="@Url.Action("UploadFiles")" method="POST" enctype="multipart/form-data">
+    <div class="row fileupload-buttonbar" style="margin-left:50px; margin-right:50px">
+        <h4 class="page-header" style="margin-top:35px"><strong>上傳產品圖片</strong></h4>
+        <div class="col-lg-7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>新增檔案...</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+                <i class="glyphicon glyphicon-open"></i>&nbsp;
+                <span>上傳檔案</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>取消上傳</span>
+            </button>
+            <!--button type="button" class="btn btn-danger delete">
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>刪除檔案</span>
+            </!--button>
+            <input type="checkbox" class="toggle">
+            <!-- The global file processing state -->
+            <span class="fileupload-process"></span>
+        </div>
+        <!-- The global progress state -->
+        <div class="col-lg-5 fileupload-progress fade">
+            <!-- The global progress bar -->
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+            </div>
+            <!-- The extended global progress state -->
+            <div class="progress-extended">&nbsp;</div>
+        </div>
+
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+    </div>
+</form>
+<br>
+        
+<!-- =========================== File Uploader End ======================================================================= -->
+<!-- =========================== The blueimp Gallery widget  start ======================================================= -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+<!-- =========================== The blueimp Gallery widget end =========================================================== -->
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">上傳中...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+            <button class="btn btn-primary start" disabled>
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>開始</span>
+            </button>
+            {% } %}
+            {% if (!i) { %}
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>取消</span>
+            </button>
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>
+
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            {%=file.thumbnail_url%}
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img width="50" height="50" src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+            {% if (file.error) { %}
+            <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+            <button class="btn btn-sm btn-danger delete" data-type="{%=file.contentType%}" data-url="{%=file.deleteUrl%}" onclick="deleteFile('{%=file.deleteUrl%}',this)" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                <i class="glyphicon glyphicon-trash"></i>&nbsp;
+                <span>刪除</span>
+            </button>
+            <!--input type="checkbox" name="delete" value="1" class="toggle" -->
+            {% } else { %}
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>&nbsp;
+                <span>取消</span>
+            </button>
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">刪除確認</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputProClassNo">產品編號：</label>
+                    <label id="label-ProNo">@ViewData.Eval("proNo")</label>
+                </div>
+                <div class="form-group">
+                    <label for="inputProClassNo">產品名稱：</label>
+                    <label id="label-ProName">@ViewData.Eval("proName")</label>
+                </div>
+                <div class="form-group">
+                    <form id="myDeleteForm" action="@Url.Action("ProDelete")" method="POST">
+                        <input type="hidden" class="form-control col-lg-2" id="inputAppSer" name="appSer" value="@ViewData.Eval("appSer")">
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-delete-submit" onclick="deleteFromSubmit()">刪除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="../../js/vendor/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="../../js/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="../../js/load-image.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="../../js/canvas-to-blob.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="../../js/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="../../js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="../../js/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="../../js/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="../../js/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="../../js/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="../../js/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="../../js/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="../../js/jquery.fileupload-ui.js"></script>
+<!-- The main application script -->
+<script src="../../js/main.js"></script>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+<script src="../../js/icheck.js"></script>
+<script src="../../js/app/pro_edit.js"></script>
+<script src="../../js/jquery.isloading.min.js"></script>
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>

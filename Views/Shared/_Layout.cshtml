@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.png">
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/css/dashboard.css" rel="stylesheet">
+
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="~/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="~/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="~/css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="~/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="~/css/jquery.fileupload-ui-noscript.css"></noscript>
+
+
+    <link href="~/css/pro-edit.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Bootstrap core JavaScript
+            ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/docs.min.js"></script>
+    <script src="../../js/angular.min.js"></script>
+    <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+    <!--[if (gte IE 8)&(lt IE 10)]>
+    <script src="js/cors/jquery.xdr-transport.js"></script>
+    <![endif]-->
+
+</head>
+<body id="mybody">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">後台管理系統</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="title-nav-product"><a href="/Product/ProList"><i class="fa fa-inbox"></i> 產品櫥窗</a></li>
+                    <li id="title-nav-account"><a href="/Order/OrderList"><i class="fa fa-file-text-o"></i> 訂單管理</a></li>
+                    <li id="title-nav-account"><a href="/Account/EmpList"><i class="fa fa-user"></i> 帳號管理</a></li>
+                    <li id="title-nav-setting"><a href="#"><i class="fa fa-cogs"></i> 基本設定</a></li>
+                    <li id="title-nav-logout"><a href="#"><i class="fa fa-power-off"></i> 登出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li id="nav-list"><a href="/Product/ProList"><i class="fa fa-th-list"></i> 產品清單</a></li>
+                    <li id="nav-add"><a href="/Product/ProAdd"><i class="fa fa-plus-square"></i> 產品新增</a></li>
+                    <li id="nav-class"><a href="/Product/ProClass"><i class="fa fa-th-large"></i> 產品分類</a></li>
+                </ul>
+                <!--ul class="nav nav-sidebar">
+                    <li><a href="">Nav item</a></li>
+                    <li><a href="">Nav item again</a></li>
+                    <li><a href="">One more nav</a></li>
+                    <li><a href="">Another nav item</a></li>
+                    <li><a href="">More navigation</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Nav item again</a></li>
+                    <li><a href="">One more nav</a></li>
+                    <li><a href="">Another nav item</a></li>
+                </ul -->
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+</html>

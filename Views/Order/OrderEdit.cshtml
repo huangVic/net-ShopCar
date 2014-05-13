@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "訂單編輯";
+    Layout = "~/Views/Shared/_LayoutOrder.cshtml";
+}
+<link href="../css/order-list.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+
+<div class="panel panel-primary" style="margin-left:10px; margin-right:10px" ng-controller="orderEditCtrl">
+    <div class="panel-heading" style="font-size:16px">訂單編輯</div>
+    <div class="panel-body">
+        <form id="myFormUpdate" class="form-horizontal" action="@Url.Action("OrderUpdate")" method="POST" role="form">
+            <input type="hidden" class="form-control" id="inputAppSer" name="app_ser" ng-model="OrderAppSer" ng-init="OrderAppSer='@ViewData.Eval("app_ser")'" value="@ViewData.Eval("app_ser")">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="lableProductionNo">訂單編號</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputAppNo" name="app_No" ng-model="OrderAppNo" disabled>
+                </div>
+                <label class="col-sm-2 control-label" for="lableProductionNo">訂單狀態</label>
+                <div class="col-sm-3">
+                    <input type="hidden" class="form-control" id="inputAppStatus" name="app_status" value="{{OrderAppStatus}}">
+                    <select class="form-control validate[required]"  ng-model="OrderAppStatus" ng-options="obj.app_status as obj.name for obj in statusList"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="lableProductionNo">訂單日期</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control validate[required,custom[date]]" id="inputCDate" name="create_date" ng-model="OrderCreateDate">
+                </div>
+                <label class="col-sm-2 control-label" for="lableProductionNo">訂單金額</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control validate[required,custom[integer]]" id="inputAmount" name="amount" ng-model="OrderAmount">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="lableProductionNo">訂購者姓名</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control validate[required]" id="inputPurchaser" name="purchaser" ng-model="OrderPurchaser">
+                </div>
+                <label class="col-sm-2 control-label" for="lableProductionNo">連絡電話</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control validate[required]" id="inputPurchaserPhone" name="purchaser_phone" ng-model="OrderPurchaserPhone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="lableProductionNo">送貨地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control validate[required]" id="inputPurchaserAddr" name="purchaser_addr" ng-model="OrderPurchaserAddr">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-8" style="text-align:right">
+                    <button type="button" id="btn-submit" class="btn btn-info start" ng-click="orderUpdateSubmit()">
+                        <i class="glyphicon glyphicon-save"></i>&nbsp;
+                        <span>更新產品</span>
+                    </button>
+
+                    <!----button type="button" class="btn btn-default btn-proDelete" data-toggle="modal" data-target="#myModal" style="background-color: #000; border-color: #fff; color:#fff">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span> 刪除產品</span>
+                    <button -->
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div style="padding:35px">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>產品編號</th>
+                            <th>產品名稱</th>
+                            <th>金額</th>
+                            <th>分類</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in OrderDetails">
+                            <td>{{item.productID}}</td>
+                            <td>{{item.proName}}</td>
+                            <td>{{item.prod_price}}</td>
+                            <td>{{item.pro_class}}</td>
+                            <td><i style="font-size:16px" class="glyphicon glyphicon-edit" ng-click="updateDetail(item.app_dser, item.pro_app_ser)"></i></td>
+                            <td><i style="font-size:16px" class="glyphicon glyphicon-trash" ng-click="deleteDetail(item.app_dser, item.productID, item.proName)"></i></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">
+                                <i style="font-size:16px" class="glyphicon glyphicon-plus" ng-click="createDetail()"> 新增訂單明細</i>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Add-->
+    <div class="modal fade bs-example-modal-lg" id="myModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="createForm">
+                <form id="myFormCreate" action="@Url.Action("CreateOrderItem")" method="POST">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title " id="myModalLabel">新增訂單明細</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="newOrderAppSer" name="order_app_ser" ng-model="OrderAppSer" ng-init="OrderAppSer='@ViewData.Eval("app_ser")'" value="@ViewData.Eval("app_ser")">
+                        <input type="hidden" class="form-control" id="newProductAppSer" name="product_app_ser" value="{{ProductItem}}">
+                        選擇明細:
+                        <select class="form-control validate[required]" ng-model="ProductItem" ng-options="obj.app_ser as (obj.prod_name + ' (' + obj.prod_no + ')' ) for obj in ProductList">
+                            <option value="">------</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="orderCreateHide()">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="orderCreateSubmit()">新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update-->
+    <div class="modal fade bs-example-modal-lg" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="createForm">
+                <form id="myFormDetailUpdate" action="@Url.Action("UpdateOrderItem")" method="POST">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title " id="myModalLabel">修改訂單明細</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="updOrderAppSer" name="order_app_ser" ng-model="OrderAppSer" ng-init="OrderAppSer='@ViewData.Eval("app_ser")'" value="@ViewData.Eval("app_ser")">
+                        <input type="hidden" class="form-control" id="updDetailAppDser" name="detail_app_dser" value="{{DetailAppDser}}">
+                        <input type="hidden" class="form-control" id="updProductAppSer" name="product_app_ser" value="{{UpProductItem}}">
+                        選擇明細:
+                        <select class="form-control validate[required]" ng-model="UpProductItem" ng-options="m.app_ser as (m.prod_name + ' (' + m.prod_no + ')' ) for m in upProductList"></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="orderDetailUpdateHide()">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="orderDetailUpdateSubmit()">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete-->
+    <div class="modal fade bs-example-modal-lg" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="createForm">
+                <form id="myFormDetailDelete" action="@Url.Action("DeleteOrderItem")" method="POST">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title " id="myModalLabel">確定刪除此訂單明細嗎?</h4>
+                    </div>
+                    <div class="modal-body" style="line-height:30px">
+                        <input type="hidden" class="form-control" id="delOrderAppSer" name="order_app_ser" ng-model="OrderAppSer" ng-init="OrderAppSer='@ViewData.Eval("app_ser")'" value="@ViewData.Eval("app_ser")">
+                        <input type="hidden" class="form-control" id="delProductAppSer" name="detail_app_dser" value="{{DeleteProductItem}}">
+                        產品編號: &nbsp;{{DeleteProductID}}<br>
+                        產品名稱: &nbsp;{{DeleteProductName}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="orderDeleteHide()">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="orderDeleteSubmit()">刪除</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+  
+
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>

@@ -1,0 +1,92 @@
+﻿body {
+/* font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
+/* font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+font-family: "Oswald","微軟正黑體",'Microsoft JhengHei','OpenSansBold', 'HelveticaNeue', 'HelveticaNeueu', sans-serif;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+color: #fff;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+color: #fff;
+background-color: #B30FA5;
+font-size: 16px;
+}
+
+.navbar-inverse .navbar-nav > li > a :hover,
+.navbar-inverse .navbar-nav > li > a :focus {
+  color: #fff;
+  background-color: #398EFA;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, 
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #fff;
+  background-color: #398EFA;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  color: #fff;
+  background-color: #505761;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.table {
+   font-size: 12px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid rgba(54, 53, 53, 0.44);
+}
+
+.btn-default, .open .dropdown-toggle.btn-default {
+color: #fff;
+border-color: #AAACAD;
+color:#000
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: #fff;
+    background-color: #A51F65;
+    border-color: #D1D6DA;
+    color:#fff
+}
+
+.btn-radio {
+    margin-top: 24px;
+}
+
+.fileupload-buttonbar{
+  padding-left:20px;
+  padding-right:20px;
+}
+
+.table-striped{
+
+}
+
+.btn {
+   padding: 4px 12px;
+}
+
+
+.addComment {
+position: absolute;
+bottom: 0;
+right: 0;
+width: 100%;
+padding: 10px;
+background-color: #f6f6f6;
+opacity: .95;
+z-index: 500;
+}

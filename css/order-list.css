@@ -1,0 +1,91 @@
+﻿.user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+
+.table > tbody > tr > td .fa{
+    margin-right:8px;
+}
+.table > tbody > tr > td .fa-phone{
+    margin-right:10px;
+}
+.table > tbody > tr > td .fa-trash-o {
+    margin-left:12px;
+}
+
+
+.table a, .tablea:focus {
+  color:#000;
+  text-decoration: none;
+}
+
+.table a:hover {
+  color:#1b5dad;
+  text-decoration: none;
+}
+
+.fa-sort-up, .fa-sort-down {
+ color:#2785CF;
+}
+
+.table i:hover {
+  color:#d9534f;
+  cursor: pointer;
+}
+
+.pagination a:hover {
+    cursor: pointer;
+}
+
+.bs-callout {
+margin: 20px 0;
+padding: 20px;
+border-left: 3px solid #eee;
+}
+.bs-callout-danger {
+background-color: #fdf7f7;
+border-color: #d9534f;
+}
+
+.badge-danger {
+    float: right;
+display: inline-block;
+min-width: 10px;
+padding: 3px 7px;
+font-size: 12px;
+font-weight: bold;
+line-height: 1;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+background-color: #E9615D;
+border-radius: 10px;
+margin-right: 2px;
+}
