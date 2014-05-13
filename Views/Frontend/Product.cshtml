@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "產品(Product)";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="../css/front-prod.css" rel="stylesheet">
+<div ng-controller="productListCtrl">
+    <div id="submenu">
+        <div id="lefttext">
+            <table width="262" border="0" cellspacing="0" cellpadding="0">
+                <tr >
+                    <td width="204" align="left" valign="top">
+                        <table width="204" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="204" align="center" valign="middle" class="menubg">科技能量系列</td>
+                            </tr>
+                            <tr >
+                                <td align="center" valign="middle" >
+                                    <a href="#" ng-repeat="item in classList"  ng-if="item.pro_class_no.substr(0,1) == 'A'">{{item.pro_class_name}}<br /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" class="menubg">美容系列</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">
+                                    <a href="#" ng-repeat="item in classList" ng-if="item.pro_class_no.substr(0,1) == 'B'">{{item.pro_class_name}}<br /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" class="menubg">保健系列</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">
+                                    <a href="#" ng-repeat="item in classList" ng-if="item.pro_class_no.substr(0,1) == 'C'">{{item.pro_class_name}}<br /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" class="menubg">農產品系列</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">
+                                    <a href="#" ng-repeat="item in classList" ng-if="item.pro_class_no.substr(0,1) == 'D'">{{item.pro_class_name}}<br /></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle">&nbsp;</td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                    </td>
+                    <td width="58" align="left" valign="top" class="titlebg"><span class="titlebg1"><img src="../images/layout_13.jpg" width="58" height="279" /></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><!-- InstanceBeginEditable name="img" --><img src="../images/leftimg3_16.jpg" width="262" height="123" /><!-- InstanceEndEditable --></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="../images/layout_20.jpg" width="261" height="232" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="banner"></div>
+    <!-- InstanceBeginEditable name="container" -->
+    <div id="container">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><img src="../images/title1_17.jpg" width="837" height="49" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center"><a href="bedding01.html"><img src="../aguicheur_img/testsm01.jpg" width="200" height="220" /></a></td>
+                            <td align="center"><img src="../aguicheur_img/testsm01.jpg" width="200" height="220" /></td>
+                            <td align="center"><img src="../aguicheur_img/testsm01.jpg" width="200" height="220" /></td>
+                        </tr>
+                        <tr>
+                            <td align="center">奇績再生精華露</td>
+                            <td align="center">奇績再生精華露</td>
+                            <td align="center">奇績再生精華露</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

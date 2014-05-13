@@ -3,7 +3,7 @@
 }
 
 <!DOCTYPE html>
-<html ng-app="orderApp">
+<html ng-app="frontendApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../favicon.png">
-    <title>Dashboard Template for Bootstrap</title>
+    <title>馨隆實業股份有限公司</title>
 
     <!-- Bootstrap core CSS -->
     <link href="~/css/bootstrap.css" rel="stylesheet">
@@ -29,7 +29,7 @@
 
 
     <link href="~/css/pro-edit.css" rel="stylesheet">
-    
+
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -46,7 +46,7 @@
     <script src="../../js/angular.min.js"></script>
     <script src="../../js/bootstrap-datepicker.js"></script>
     <script src="../../js/bootstrap-datepicker.zh-TW.js" charset="UTF-8"></script>
-    <script src="../../js/app/order.js"></script>
+    <script src="../../js/app/frontend.js"></script>
     <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
     <!--[if (gte IE 8)&(lt IE 10)]>
     <script src="js/cors/jquery.xdr-transport.js"></script>
@@ -54,40 +54,28 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">後台管理系統</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li id="title-nav-product"><a href="/Product/ProList"><i class="fa fa-inbox"></i> 產品櫥窗</a></li>
-                    <li id="title-nav-account" class="active"><a href="/Order/OrderList"><i class="fa fa-file-text-o"></i> 訂單管理</a></li>
-                    <li id="title-nav-account"><a href="/Account/EmpList"><i class="fa fa-user"></i> 帳號管理</a></li>
-                    <li id="title-nav-logout"><a href="#"><i class="fa fa-power-off"></i> 登出</a></li>
-                </ul>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo"></div>
+            <div id="menu">
+                <div id="top"><img src="../images/layout_02.jpg" width="838" height="40" /></div>
+                <div id="menubtn">
+                    <div id="btn"></div>
+                    <div id="btn1"><a href="#"></a></div>
+                    <div id="btn2"><a href="/Frontend/Product"></a></div>
+                    <div id="btn3"><a href="#"></a></div>
+                    <div id="btn4"><a href="#"></a></div>
+                    <div id="btn5"><a href="#"></a></div>
+                    <div id="btn6"><a href="#"></a></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar" ng-controller="NavCtrl">
-                    <li id="nav-list" ng-class="navClass('OrderList')"><a href="/Order/OrderList"><i class="fa fa-th-list"></i> 訂單查詢</a></li>
-                    <!--li id="nav-add" ng-class="navClass('OrderAdd')"><a href="/Order/OrderAdd"><i class="fa fa-plus-square"></i> 新增訂單</a></li-->
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                @RenderBody()
-            </div>
+        <div id="nav">
+            @RenderBody()
         </div>
+        <div id="flooter"></div>
     </div>
+
 
 
 </body>
