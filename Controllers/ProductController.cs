@@ -60,7 +60,7 @@ namespace ShopCar.Controllers
             SqlConnection cn = new SqlConnection(_connectionString);
 
             // 2. SQL 指令 
-            string sql = "select a.app_ser,a.ProductID as prod_no,a.ProName as prod_name,a.pro_desc as prod_desc, a.prod_price,a.prod_special_price,a.prod_feature,isnull(b.pro_class_name,'') as prod_class, a.pro_active from product a left join Product_Class b on a.prod_class_id=b.app_ser where a.pro_active='on' ";
+            string sql = "select a.app_ser,a.ProductID as prod_no,a.ProName as prod_name,a.pro_desc as prod_desc, a.prod_price,a.prod_special_price,a.prod_feature from product a left join Product_Class b on a.prod_class_id=b.app_ser where a.pro_active='on' ";
             //string sql = "select app_ser,ProductID,ProName,'' as prod_desc,SalePrice,'' as prod_special_price,'' as prod_feature,'' as prod_class from product";
             SqlCommand comm = new SqlCommand(sql, cn);
 
@@ -816,6 +816,49 @@ namespace ShopCar.Controllers
 
             // 2. Return pro_list  
             return RedirectToAction("ProClass");
+        }
+
+
+
+
+        // 取得某產品分類下所有被啟用的產品列表 Api
+        public ActionResult ClassToActiveProductData(int classAppSer)
+        {
+
+            if (Convert.IsDBNull(classAppSer))
+            {
+                classAppSer = 1;
+            }
+
+            // 1. 資料庫連線 
+            SqlConnection cn = new SqlConnection(_connectionString);
+
+            // 2. SQL 指令 
+            string sql = "select a.app_ser,a.ProductID as prod_no,a.ProName as prod_name,a.pro_desc as prod_desc, a.prod_price,a.prod_special_price,a.prod_feature,isnull((select top 1 download_url from ShopCar.dbo.Product_Photo c where a.app_ser=c.app_ser),'') as download_url from product a left join Product_Class b on a.prod_class_id=b.app_ser where a.pro_active='on' and b.app_ser=@id";
+            //string sql = "select app_ser,ProductID,ProName,'' as prod_desc,SalePrice,'' as prod_special_price,'' as prod_feature,'' as prod_class from product";
+            cn.Open();
+            SqlCommand comm = new SqlCommand(sql, cn);
+            comm.Parameters.Clear();
+            comm.Parameters.AddWithValue("@id", classAppSer);
+
+
+            // 2. SqlDataAdapter & DataSet 
+            DataSet ds = new DataSet();
+            using (cn)
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(comm);
+                adapter.Fill(ds);
+                DataTable myDataTable = ds.Tables[0];
+                cn.Close();
+                cn.Dispose();
+                //Models.ShopCarDatasetTableAdapters.ProductTableAdapter proadp = new Models.ShopCarDatasetTableAdapters.ProductTableAdapter();
+                //DataTable table = proadp.GetData();
+                Hashtable myHT = new Hashtable();
+                myHT.Add("productList", myDataTable);
+                string obj_json = JsonConvert.SerializeObject(myHT);
+                return Content(obj_json, "application/json");
+
+            }
         }
 
     }

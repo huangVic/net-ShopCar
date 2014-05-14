@@ -259,3 +259,25 @@
             padding-top: 1px;
             padding-bottom: 2px;
         }
+
+.caption{
+    text-align:center;
+}
+
+.imgStyle {
+    width:60%;
+    height:65%;
+}
+
+.thumbnail {
+  font-size:16px;
+}
+
+.thumbnail:hover {
+  border-color:#2588ec;
+  border-width:2px;
+  background-color:rgba(235, 235, 235, 0.38);
+  color:#2588ec;
+  font-size:16px;
+  font-weight:900;
+}
