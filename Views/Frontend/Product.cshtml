@@ -64,10 +64,10 @@
     </div>
     <div id="banner"></div>
     <!-- InstanceBeginEditable name="container" -->
-    <div id="container">
-        <div class="row" style="margin-right: 3px; margin-left: 3px;">
+    <div id="container" ng-if="listFlag">
+        <div class=" row" style="margin-right: 3px; margin-left: 3px;">
             <div class="col-sm-6 col-md-4" ng-repeat="prodItem in pagedItems[currentPage]">
-                <div class="thumbnail" style="padding: 0px;">
+                <div class="thumbnail" style="padding: 0px;" ng-click="getProductItem(prodItem.app_ser)">
                     <div class="caption">
                         {{prodItem.prod_name}}
                     </div>
@@ -96,6 +96,45 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="container" ng-if="detailFlag" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><div class="alert alert-info">{{productItem[0].pro_class_name}}</div></td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="95%" border="0" align="center" cellpadding="5" cellspacing="5">
+                        <tr>
+                            <td width="50%" align="center" style="padding:20px"><img ng-src="..{{productFiles[0].url}}" width="400" height="340" /></td>
+                            <td width="50%" align="left">
+                                <p>
+                                    <span class="t1" style="font-size: 20px;">{{productItem[0].prod_name}}</span><br/><span class="label label-danger" style="padding:5px 7px;font-size:14px"> NT $ {{productItem[0].prod_special_price?productItem[0].prod_special_price:productItem[0].prod_price}}</span><br />
+                                    <div ng-bind-html="prodFeature"></div>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left" class="titlebg1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="t1">商品內容介紹</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left"><p ng-bind-html="prodDesc"></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left">
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-3" ng-repeat="fileItem in productFiles">
+                                        <a href="#" class="thumbnail">
+                                            <img ng-src="..{{fileItem.url}}" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 

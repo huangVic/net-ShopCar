@@ -1,4 +1,4 @@
-﻿var frontendApp = angular.module('frontendApp', [], function ($locationProvider) {
+﻿var frontendApp = angular.module('frontendApp', ['ngSanitize'], function ($locationProvider) {
     $locationProvider.html5Mode(false);
 });
 
@@ -10,6 +10,9 @@ frontendApp.$inject = ['$scope', '$filter', '$http'];
 frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
     var po = Math.random()
     console.log('po: ' + po);
+
+    $scope.listFlag = false;
+    $scope.detailFlag = false;
 
     // ------- class list ----------//
     $http({
@@ -26,20 +29,34 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
     });
 
     
-    /*
-    $http({
-        method: 'GET',
-        url: '/Product/ClassToActiveProductData',
-        cache: false,
-        params: { _po: po, classAppSer:1 },
-        headers: { 'Content-Type': 'application/json' }
-    })
-   .success(function (data) {
-       console.log(data.productList);
-       $scope.productList = data.productList;
+    // --------- get product item  --------------//
+    $scope.getProductItem = function (productAppSer) {
+        console.log('---->' + productAppSer)
 
-   });
-   */
+        $scope.productItem = [];
+        $scope.productFiles = [];
+
+        $scope.listFlag = false;
+        $scope.detailFlag = true;
+
+        var oo = Math.random()
+        
+        $http({
+            method: 'GET',
+            url: '/Product/getProductData',
+            cache: false,
+            params: { _po: po, appSer: productAppSer },
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .success(function (data) {
+            $scope.productItem = data.productItem;
+            $scope.productFiles = data.files;
+            $scope.prodFeature = data.productItem[0].prod_feature.replace(/\r\n/g, "<br />")
+            $scope.prodDesc = data.productItem[0].prod_desc.replace(/\r\n/g, "<br />")
+        });
+
+
+    };
 
     
 
@@ -57,6 +74,9 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         console.log('classAppSer: ' + classAppSer);
         var p1 = Math.random();
         console.log('p1: ' + p1);
+
+        $scope.listFlag = true;
+        $scope.detailFlag = false;
 
         if (classAppSer) {
             $http({
@@ -177,7 +197,24 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
 }]);
 
 
+/*****************************
+* Product Item Page controller
+*****************************/
+frontendApp.controller('productItemCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+    var po = Math.random()
+    console.log('item po: ' + po);
 
-frontendApp.directive("customSort", function () {
+    // ------- class list ----------//
+    $http({
+        method: 'GET',
+        url: '/Product/GetProClassList',
+        cache: false,
+        params: { _po: po },
+        headers: { 'Content-Type': 'application/json' } 
+    })
+    .success(function (data) {
+        //console.log(data.classList);
+        $scope.classList = data.classList;
 
-});
+    });
+}]);

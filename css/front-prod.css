@@ -229,8 +229,8 @@
         }
 
         .t1 {
-            font-size: 12pt;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 900;
             color: #035C94;
         }
 
@@ -280,4 +280,18 @@
   color:#2588ec;
   font-size:16px;
   font-weight:900;
+}
+
+
+
+.alert-info {
+color: #fff;
+background-color: #0E72A5;
+border-color: #0E72A5;
+}
+.alert {
+padding: 2px 0px 2px 20px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;
 }
