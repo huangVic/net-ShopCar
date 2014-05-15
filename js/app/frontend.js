@@ -35,6 +35,8 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
 
         $scope.productItem = [];
         $scope.productFiles = [];
+        $scope.prodFeature = null;
+        $scope.prodDesc = null;
 
         $scope.listFlag = false;
         $scope.detailFlag = true;

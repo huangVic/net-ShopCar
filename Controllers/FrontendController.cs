@@ -16,17 +16,5 @@ namespace ShopCar.Controllers
             return View();
         }
 
-
-        public ActionResult ProductItem(string proAppSer)
-        {
-            System.Diagnostics.Debug.WriteLine(" >>>> ProductItem -------------------------->>>> ");
-            System.Diagnostics.Debug.WriteLine(" >>>> ProductItem app_ser: " + proAppSer);
-
-            var info = new
-            {
-                app_ser = proAppSer
-            };
-            return View("ProductItem", info);
-        }
     }
 }
