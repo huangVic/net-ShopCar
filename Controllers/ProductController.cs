@@ -485,7 +485,7 @@ namespace ShopCar.Controllers
             statuses.contentType = wf.tos(drow["content_type"]);
             statuses.url = wf.tos(drow["download_url"]);
             statuses.deleteUrl = wf.tos(drow["delete_url"]); //"/Product/Delete?id=" + appSer; // file table的 App_Ser
-            statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(wf.tos(drow["thumbnail_url"]));
+            //statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(wf.tos(drow["thumbnail_url"]));
             statuses.deleteType = wf.tos(drow["delete_type"]);
             list.Add(statuses);
 
@@ -600,7 +600,7 @@ namespace ShopCar.Controllers
             statuses.contentType = file.ContentType;
             statuses.url = "/Files/" + fileName;
             statuses.deleteUrl = ""; //"/Product/Delete?id=" + fileName;
-            statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(fullName);
+            //statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(fullName);
             statuses.deleteType = "GET";
             int ret_app_dser;
             ret_app_dser = Convert.ToInt32(photoadp.InsertPhoto(appser, statuses.name, statuses.size, statuses.url, fullName, statuses.deleteUrl, statuses.deleteType, statuses.contentType));
@@ -640,7 +640,7 @@ namespace ShopCar.Controllers
                 statuses.contentType = file.ContentType;
                 statuses.url = "/Files/" + file.FileName;
                 statuses.deleteUrl = "";//"/Product/Delete?id=" + file.FileName;
-                statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(fullPath);
+                //statuses.thumbnailUrl = @"data:image/png;base64," + EncodeFile(fullPath);
                 statuses.deleteType = "GET";
                 int ret_app_dser;
                 ret_app_dser = Convert.ToInt32(photoadp.InsertPhoto(appser, statuses.name, statuses.size, statuses.url, fullPath, statuses.deleteUrl, statuses.deleteType, statuses.contentType));
@@ -887,7 +887,7 @@ namespace ShopCar.Controllers
                 fileItem.contentType = wf.tos(drow["content_type"]);
                 fileItem.url = wf.tos(drow["download_url"]);
                 fileItem.deleteUrl = wf.tos(drow["delete_url"]); //"/Product/Delete?id=" + appSer; // file table的 App_Ser
-                fileItem.thumbnailUrl = @"data:image/png;base64," + EncodeFile(wf.tos(drow["thumbnail_url"]));
+               // fileItem.thumbnailUrl = @"data:image/png;base64," + EncodeFile(wf.tos(drow["thumbnail_url"]));
                 fileItem.deleteType = wf.tos(drow["delete_type"]);
                 list.Add(fileItem);
             }

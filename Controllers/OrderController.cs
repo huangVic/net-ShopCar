@@ -55,7 +55,7 @@ namespace ShopCar.Controllers
                         pro_app_ser = wf.tos(drowD["pro_app_ser"]), // 產品app_Ser
                         productID = wf.tos(drowD["productID"]),
                         proName = wf.tos(drowD["proName"]),
-                        prod_price = wf.toi(drowD["prod_price"]),  // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
+                        prod_price = wf.toi(drowD["prod_price"]),   // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
                         pro_class_id = wf.tos(drowD["prod_class_id"]),     // 產品分類id
                         pro_class = wf.tos(drowD["pro_class_name"])  // 分類中文名稱
                     };

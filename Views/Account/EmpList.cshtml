@@ -24,7 +24,7 @@
                                          alt="User Pic">
                                 </div>
                                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                    <strong>{{account.emp_name}} </strong><input type="hidden" name="app_ser" value="{{account.app_ser}}"><br>
+                                    <strong>{{account.emp_name}} &nbsp;&nbsp;({{account.emp_id}}) </strong><input type="hidden" name="app_ser" value="{{account.app_ser}}"><br>
                                     <span class="text-muted" style="margin-top:5px"><i class="fa fa-envelope-o"></i> {{account.emp_email}}</span><br>
                                     <span class="text-muted" style="margin-top:5px"><i class="fa fa-phone"></i> {{account.emp_tel}}</span>
                                 </div>
@@ -93,6 +93,10 @@
                         </div>
                         <div class="form-group">
                             <label for="inputeditempName">帳號</label>
+                            <input type="text" class="form-control validate[required]" id="editempId" name="emp_id" ng-model="empIdUp">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputeditempName">姓名</label>
                             <input type="text" class="form-control validate[required]" id="editempName" name="emp_name" ng-model="empNameUp">
                         </div>
                         <div class="form-group">

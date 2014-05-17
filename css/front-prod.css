@@ -267,11 +267,14 @@
 .imgStyle {
     width:60%;
     height:65%;
+   
 }
 
 .thumbnail {
   font-size:16px;
 }
+
+
 
 .thumbnail:hover {
   border-color:#2588ec;

@@ -69,6 +69,7 @@ accountApp.controller('empListCtrl', ['$scope', '$http', function ($scope, $http
             console.log(account.emp_name);
           //  $('#editempAppSer').val(account.app_ser);
             $scope.appSerUp = account.app_ser;
+            $scope.empIdUp = account.emp_id;
             $scope.empNameUp = account.emp_name;
             $scope.empEmailUp = account.emp_email;
             $scope.empTelUp = account.emp_tel;

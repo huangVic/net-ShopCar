@@ -47,7 +47,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
             method: 'GET',
             url: '/Product/getProductData',
             cache: false,
-            params: { _po: po, appSer: productAppSer },
+            params: { _po: oo, appSer: productAppSer },
             headers: { 'Content-Type': 'application/json' }
         })
         .success(function (data) {
@@ -67,7 +67,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
     $scope.nonfilertKey = ['app_ser', 'details'];
     $scope.filteredItems = [];
     $scope.groupedItems = [];
-    $scope.itemsPerPage = 9;
+    $scope.itemsPerPage = 6;
     $scope.pagedItems = [];
     $scope.currentPage = 0;
     $scope.items = []
@@ -85,7 +85,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
                 method: 'GET',
                 url: '/Product/ClassToActiveProductData',
                 cache: false,
-                params: { _po: po, classAppSer: classAppSer },
+                params: { _po: p1, classAppSer: classAppSer },
                 headers: { 'Content-Type': 'application/json' }
             })
            .success(function (data) {

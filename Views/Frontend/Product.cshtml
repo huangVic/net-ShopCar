@@ -66,13 +66,13 @@
     <!-- InstanceBeginEditable name="container" -->
     <div id="container" ng-if="listFlag">
         <div class=" row" style="margin-right: 3px; margin-left: 3px;">
-            <div class="col-sm-6 col-md-4" ng-repeat="prodItem in pagedItems[currentPage]">
+            <div class="col-lg-4" ng-repeat="prodItem in pagedItems[currentPage]">
                 <div class="thumbnail" style="padding: 0px;" ng-click="getProductItem(prodItem.app_ser)">
                     <div class="caption">
                         {{prodItem.prod_name}}
                     </div>
-                    <img class="imgStyle" src="../img/wireframe-Template.png" ng-if="prodItem.download_url == ''">
-                    <img class="imgStyle" ng-src="..{{prodItem.download_url}}" alt="{{prodItem.prod_name}}" ng-if="prodItem.download_url != ''">
+                    <img class="imgStyle" src="../img/wireframe-Template.png" ng-if="prodItem.download_url == ''" >
+                    <img class="imgStyle" ng-src="..{{prodItem.download_url}}" alt="{{prodItem.prod_name}}" ng-if="prodItem.download_url != ''" >
                     <div class="caption">
                         <h4><span class="label label-danger"> $ {{prodItem.prod_special_price?prodItem.prod_special_price:prodItem.prod_price}}</span></h4>
                     </div>
@@ -110,9 +110,11 @@
                                 <img ng-src="..{{productFiles[0].url}}" width="400" height="340" ng-if="productFiles.length > 0"  />
                                <img src="../img/wireframe-Template.png" ng-if="productFiles.length == 0">
                             </td>
-                            <td width="50%" align="left">
+                            <td width="50%" align="left" valign="top">
                                 <p>
-                                    <span class="t1" style="font-size: 20px;">{{productItem[0].prod_name}}</span><br/><span class="label label-danger" style="padding:5px 7px;font-size:14px"> NT $ {{productItem[0].prod_special_price?productItem[0].prod_special_price:productItem[0].prod_price}}</span><br />
+                                    <span class="t1" style="font-size: 20px;">{{productItem[0].prod_name}}</span>
+                                    <br /><span>產品編號: {{productItem[0].prod_no}}</span>
+                                    <br/><span class="label label-danger" style="padding:5px 7px;font-size:14px"> NT $ {{productItem[0].prod_special_price?productItem[0].prod_special_price:productItem[0].prod_price}}</span><br />
                                     <div ng-bind-html="prodFeature"></div>
                                 </p>
                             </td>
@@ -127,9 +129,9 @@
                             <td colspan="2" align="left">
                                 <div class="row">
                                     <div class="col-xs-6 col-md-3" ng-repeat="fileItem in productFiles" >
-                                        <a href="#" class="thumbnail">
+                                        <span class="thumbnail">
                                             <img ng-src="..{{fileItem.url}}" alt="">
-                                        </a>
+                                        </span>
                                     </div>
                             </td>
                         </tr>
