@@ -27,14 +27,12 @@ namespace ShopCar.Controllers
         {
             //主檔
             ArrayList list = new ArrayList();
-
-            // 訂單明細
-            ArrayList detailList = new ArrayList();
+ 
 
             Models.ShopCarDatasetTableAdapters.OrderTableAdapter orderMadp = new Models.ShopCarDatasetTableAdapters.OrderTableAdapter();
             DataTable dtMaster = orderMadp.GetData();
 
-            DataTable dtDetail;
+            
             string appstatus;
 
             Models.ShopCarDatasetTableAdapters.DataTable1TableAdapter orderDadp = new Models.ShopCarDatasetTableAdapters.DataTable1TableAdapter();
@@ -42,25 +40,29 @@ namespace ShopCar.Controllers
 
             foreach (DataRow drowM in dtMaster.Rows)
             {
-                dtDetail=orderDadp.GetOneOrderData(wf.toi(drowM["app_ser"]));
 
+                DataTable dtDetail = orderDadp.GetOneOrderData(wf.toi(drowM["app_ser"]));
+
+                // 訂單明細
+                ArrayList detailList = new ArrayList();
                 
                 foreach (DataRow drowD in dtDetail.Rows)
                 {
-                    
-                    
-                    var detailItem = new
-                    {
-                        app_dser = wf.tos(drowD["app_dser"]),
-                        pro_app_ser = wf.tos(drowD["pro_app_ser"]), // 產品app_Ser
-                        productID = wf.tos(drowD["productID"]),
-                        proName = wf.tos(drowD["proName"]),
-                        prod_price = wf.toi(drowD["prod_price"]),   // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
-                        pro_class_id = wf.tos(drowD["prod_class_id"]),     // 產品分類id
-                        pro_class = wf.tos(drowD["pro_class_name"])  // 分類中文名稱
-                    };
-                    detailList.Add(detailItem);
 
+                    if (wf.tos(drowD["app_dser"]) !="")
+                    {
+                        var detailItem = new
+                        {
+                            app_dser = wf.tos(drowD["app_dser"]),
+                            pro_app_ser = wf.tos(drowD["pro_app_ser"]), // 產品app_Ser
+                            productID = wf.tos(drowD["productID"]),
+                            proName = wf.tos(drowD["proName"]),
+                            prod_price = wf.toi(drowD["prod_price"]),   // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
+                            pro_class_id = wf.tos(drowD["prod_class_id"]),     // 產品分類id
+                            pro_class = wf.tos(drowD["pro_class_name"])  // 分類中文名稱
+                        };
+                        detailList.Add(detailItem);
+                     }
                 }
 
                 if (wf.tos(drowM["app_status"])=="0")
@@ -136,7 +138,7 @@ namespace ShopCar.Controllers
             System.Diagnostics.Debug.WriteLine(" >>>> OrderUpdate purchaser_addr: " + formCollection["purchaser_addr"]);
             System.Diagnostics.Debug.WriteLine(" >>>> OrderUpdate amount: " + formCollection["amount"]);
 
-            // 2. 更新 app_status / create_date / amount
+            //*********** 2. 更新 app_status / create_date / amount  (未開發) ***********
 
 
             // 3. 回傳app_Ser
@@ -156,41 +158,42 @@ namespace ShopCar.Controllers
             //取得訂單資料回傳前端
             ArrayList list = new ArrayList();
 
-            // 訂單明細1
-            ArrayList detailList = new ArrayList();
-
 
             Models.ShopCarDatasetTableAdapters.OrderTableAdapter orderMadp = new Models.ShopCarDatasetTableAdapters.OrderTableAdapter();
             DataTable dtMaster = orderMadp.GetOneOrderMasteData(wf.toi(app_ser));
 
-            DataTable dtDetail;
-            string appstatus;
 
             Models.ShopCarDatasetTableAdapters.DataTable1TableAdapter orderDadp = new Models.ShopCarDatasetTableAdapters.DataTable1TableAdapter();
 
             foreach (DataRow drowM in dtMaster.Rows)
             {
-                dtDetail = orderDadp.GetOneOrderData(wf.toi(drowM["app_ser"]));
+                 DataTable dtDetail = orderDadp.GetOneOrderData(wf.toi(drowM["app_ser"]));
 
+                 // 訂單明細1
+                 ArrayList detailList = new ArrayList();
 
                 foreach (DataRow drowD in dtDetail.Rows)
                 {
 
-
-                    var detailItem = new
-                    {
-                        app_dser = wf.tos(drowD["app_dser"]),
-                        pro_app_ser = wf.tos(drowD["pro_app_ser"]), // 產品app_Ser
-                        productID = wf.tos(drowD["productID"]),
-                        proName = wf.tos(drowD["proName"]),
-                        prod_price = wf.toi(drowD["prod_price"]),  // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
-                        pro_class_id = wf.tos(drowD["prod_class_id"]),     // 產品分類id
-                        pro_class = wf.tos(drowD["pro_class_name"])  // 分類中文名稱
-                    };
-                    detailList.Add(detailItem);
-
+                    if(wf.tos(drowD["app_dser"]) != "")
+                    { 
+                        var detailItem = new
+                        {
+                            app_dser = wf.tos(drowD["app_dser"]),
+                            pro_app_ser = wf.tos(drowD["pro_app_ser"]), // 產品app_Ser
+                            productID = wf.tos(drowD["productID"]),
+                            proName = wf.tos(drowD["proName"]),
+                            prod_price = wf.toi(drowD["prod_price"]),  // 有特價([prod_special_price]) 已特價為主, 沒有在給原價資訊 目前先抓prod_price
+                            pro_class_id = wf.tos(drowD["prod_class_id"]),     // 產品分類id
+                            pro_class = wf.tos(drowD["pro_class_name"])  // 分類中文名稱
+                        };
+                        detailList.Add(detailItem);
+                    }
                 }
 
+
+                //string appstatus;
+                /*
                 if (wf.tos(drowM["app_status"]) == "0")
                 { appstatus = "取消"; }
                 else if (wf.tos(drowM["app_status"]) == "10")
@@ -205,7 +208,7 @@ namespace ShopCar.Controllers
                 { appstatus = "取消訂單"; }
                 else
                 { appstatus = "無狀態"; }
-
+                */
 
                 // 訂單主表單
                 var orderItem = new
@@ -214,7 +217,7 @@ namespace ShopCar.Controllers
                     app_no = wf.tos(drowM["app_no"]),
                     create_date = ((DateTime)drowM["create_date"]).ToString("yyyy/MM/dd"),
                     amount = wf.tos(drowM["amount"]),
-                    app_status = appstatus,   // 訂單狀態: 0:取消, 10:貨物退回, 100:處裡中, 200:送貨中, 900:結案, 999:取消訂單 
+                    app_status = wf.tos(drowM["app_status"]),   // 訂單狀態: 0:取消, 10:貨物退回, 100:處裡中, 200:送貨中, 900:結案, 999:取消訂單 
                     purchaser = wf.tos(drowM["purchaser"]),
                     purchaser_phone = wf.tos(drowM["purchaser_phone"]),
                     purchaser_addr = wf.tos(drowM["purchaser_addr"]),
@@ -238,6 +241,8 @@ namespace ShopCar.Controllers
             System.Diagnostics.Debug.WriteLine(" >>>> CreateOrderItem order_app_ser: " + formCollection["order_app_ser"]);
             System.Diagnostics.Debug.WriteLine(" >>>> CreateOrderItem product_app_ser: " + formCollection["product_app_ser"]);
 
+            //******** 2.訂單明細新增資料庫   (未開發) ***********
+
 
             var orderItem = new
             {
@@ -256,8 +261,10 @@ namespace ShopCar.Controllers
             System.Diagnostics.Debug.WriteLine(" >>>> UpdateOrderItem order_app_ser: " + formCollection["order_app_ser"]);
             System.Diagnostics.Debug.WriteLine(" >>>> UpdateOrderItem detail_app_dser: " + formCollection["detail_app_dser"]);  // 訂單明細 ser
             System.Diagnostics.Debug.WriteLine(" >>>> UpdateOrderItem product_app_ser: " + formCollection["product_app_ser"]);  // 更新產品 ser
+            
+            //******** 2.更新資料庫訂單明細   (未開發) ***********
 
-            // 2.更新資料庫訂單明細
+
 
 
             // 3. 回傳order_app_ser
@@ -279,7 +286,7 @@ namespace ShopCar.Controllers
             System.Diagnostics.Debug.WriteLine(" >>>> DeleteOrderItem detail_app_dser: " + formCollection["detail_app_dser"]);
 
 
-            // 2.刪除資料庫訂單明細
+            //******** 2.刪除資料庫訂單明細  (未開發) ***********
 
 
             // 3. 回傳order_app_ser
