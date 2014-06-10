@@ -108,7 +108,7 @@
                         <tr>
                             <td width="50%" align="center" style="padding:20px">
                                 <img ng-src="..{{productFiles[0].url}}" width="400" height="340" ng-if="productFiles.length > 0"  />
-                               <img src="../img/wireframe-Template.png" ng-if="productFiles.length == 0">
+                                <img src="../img/wireframe-Template.png" ng-if="productFiles.length == 0">
                             </td>
                             <td width="50%" align="left" valign="top">
                                 <p>
@@ -127,12 +127,9 @@
                         </tr>
                         <tr>
                             <td colspan="2" align="left">
-                                <div class="row">
-                                    <div class="col-xs-6 col-md-3" ng-repeat="fileItem in productFiles" >
-                                        <span class="thumbnail">
-                                            <img ng-src="..{{fileItem.url}}" alt="">
-                                        </span>
-                                    </div>
+                                <div class="row" ng-repeat="fileItem in productFiles" style="text-align: center;">
+                                      <img ng-src="..{{fileItem.url}}" alt="">
+                                </div>
                             </td>
                         </tr>
                     </table>
