@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = "產品(Product)";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="../css/front-memberEdit.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+
+<div ng-controller="memberEditCtrl">
+    <div id="nav">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center"><img src="~/Images/member_edit.jpg" width="1100" height="132" /></td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <form id="form1" name="form1" method="post" action="@Url.Action("MemberCreate", "Frontend")" class="form-horizontal" role="form">
+                            <div class="form-group" style="margin-top: 15px">
+                                <label for="inputPassword" class="col-sm-2 control-label">會員帳號</label>
+                                <div class="col-sm-2">
+                                    @ViewData.Eval("user_email")
+                                    <input type="hidden" class="form-control" name="user_id" id="user_id" value="@ViewData.Eval("user_email")">
+                                    <input type="hidden" class="form-control" name="user_password" id="user_password" value="@ViewData.Eval("ps")">
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">中文姓名*</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control validate[required]" name="user_name" id="user_name" placeholder="姓名">
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">性別</label>
+                                <div class="col-sm-2" style="padding-left:0px; width:11%">
+                                    <label class="checkbox-inline" style="padding-left: 0px;">
+                                        <input type="radio" name="male" id="male1" value="1" class="validate[required] radio" style="min-height: 0px">
+                                    </label>&nbsp;男
+                                    <label class="checkbox-inline" style="padding-left: 0px;">
+                                        <input type="radio" name="male" id="male2" value="2" class="validate[required] radio" style="min-height: 0px">
+                                    </label>&nbsp;女
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">出生年月日*</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control validate[required,custom[date]]" name="BirthDay" id="BirthDay" placeholder="生日">
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">連絡電話</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" name="tel" id="tel" placeholder="電話">
+                                </div>
+                                <div class="col-sm-1" style="padding-left: 0px;">
+                                    <input type="text" class="form-control " name="extno" id="extno" placeholder="分機">
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">行動電話*</label>
+                                <div class="col-sm-8" style="text-align:left; font-size:14px">
+                                    <input type="text" class="form-control validate[required]" name="mobile" id="mobile" placeholder="手機號碼" style="width: 22%">
+                                    (請再次確認聯絡方式是否正確，以確保日後能順利收到SinLong交易成功簡訊通知，謝謝！)
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">電子郵件*</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control validate[required,custom[email]]" name="email" id="email" placeholder="email">
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label">地址*</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control validate[required]" name="Address" id="Address" placeholder="送貨地址">
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:33px">
+                                <label for="inputPassword" class="col-sm-2 control-label">SinLong購物網<br>會員條款</label>
+                                <div class="col-sm-9" style="text-align:left;font-size:15px">
+                                    加入馨隆實業購物網站會員約定條款
+                                    歡迎申請加入馨隆實業購物網站會員，SINLONG網站及會員服務是由『馨隆實業有限公司』&lt;簡稱馨隆實業&gt;所建置提供。<br>
+                                    為了保護會員以及所有使用者的利益，並為服務提供依據，請詳細閱讀各項服務辦法及條款，當您完成會員資料的申請與提供，開始使用各種服務時，即表示您已同意接受各項說明辦法之所有內容。 約定之服務辦法與條款如有任何修改，都會公佈在SINLONG網站，建議您隨時注意相關調整。如您於任何調整修改後繼續使用任一服務，表示您已同意接受修改後的約定事項。
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="font-size:13px; color:#f87b7b">
+                                        .... 閱讀更多詳細條款
+                                    </a>
+                                    <br>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body" style="text-align: justify;">
+                                            如您是未滿二十歲的青少年，當您上網前，請您確認您的家長監護人已經同意您上網成為本公司會員並使用本網站。<br>
+                                            關於您的會員註冊之個人資料，馨隆實業將依中華民國個人資料保護法與相關法令之規範，以及本網站「隱私權聲明」保護之。<br>
+                                            一、網站會員資料
+                                            依法告知事項
+                                            馨隆實業為提供電子商務交易平台並保護消費者權益，乃建立會員機制，以提供完整之會員服務，謹依個人資料保護法第8條規定告知下列事項：
+                                            蒐集、處理、利用之目的
+                                            商業與技術資訊
+                                            客戶管理
+                                            會員管理
+                                            行銷
+                                            資訊與資料庫管理
+                                            統計調查與分析等目的
+                                            個人資料交易
+                                            其他合於營業登記項目或章程所定業務之需要
+                                            其他財政服務
+                                            公益捐贈
+                                            個人資料之類別：
+                                            辨識個人者。如姓名、地址、電話、電子郵件、寄送地址及收件人資料等。
+                                            辨識財務者。如信用卡或簽帳卡之號碼、個人之其他號碼或帳戶等。
+                                            政府資料中之辨識者。如身分證字號或護照號碼。
+                                            個人描述。如性別、年齡、出生年月日、國籍。
+                                            家庭情形。如結婚有無等。
+                                            休閒活動及興趣。如嗜好、運動及其他興趣等。
+                                            生活格調。使用消費品之種類及服務細節、個人或家庭知消費模式等。
+                                            財務交易。如支付方式、往來紀錄。
+                                            約定或契約。如關於交易、商業、法律或其他契約等
+                                            利用期間
+                                            自您同意成為會員之日起至馨隆實業或您終止本會員規約之日止。
+                                            利用地區、對象及方式
+                                            台灣地區及產品出貨地，且基於履行契約義務，將提供相關資料予會員購買產品之供應商及
+                                            物流商，馨隆實業於前揭特定目的範圍內之委外廠商。
+                                            馨隆實業將於蒐集之特定目的範圍內處理並利用個人資料。
+                                            會員就其個人資料依法得向馨隆實業以書面請求行使下列權利：
+                                            查詢或請求閱覽。
+                                            製給複製本。
+                                            補充或更正。
+                                            請求停止蒐集、處理或利用。
+                                            請求刪除。
+                                            會員行使前條任一權利，請檢附相關證明文件向馨隆實業提出書面申請，馨隆實業就該書面請求之決定，將於收到會員書面請求之次日起15日內以書面通知申請人，前述15日期間於必要時，得予再延長15日，馨隆實業並將於以書面通知申請人。如會員就其個人資料向馨隆實業請求查詢、提供閱覽或製給複製本時，亞東將酌收必要成本費用。前述之申請，應填具申請文件，並由本人親自申請，馨隆實業得向您請求提出可資確認身分之證明文件。若委託他
+                                            人代為申請者，應出具委任書，並提供本人及代理人之之身分證明文件。
+                                            會員得自由選擇提供個人資料，惟若其提供之資料不足或有誤時，馨隆實業除將無法提供完整之購物服務外，亦將可能無法使其行使SINLONG網站之會員權利。
+                                            關於網站會員註冊
+                                            您同意提供包括但不限於姓名、身分證字號、電話、地址、生日及電子郵件等基本資料進行註冊，以在本網站進行消費及接受本網站會員服務。
+                                            您確認於註冊時提供個人資料均屬真實，如您個人資料誤填或有變更時，您將隨時更正或更新，馨隆實業將依您所提供之最新資料予以更新或補充，並維護您個人資料之正確性；如您未及時更新，表示您同意馨隆實業繼續依您原登錄資料提供各項服務，若因此所受之不利益，均應由您自行承擔。
+                                            若您登錄不實資料，馨隆實業將於發現後暫停或終止您的會員資格，並拒絕您使用會員服務。
+                                            馨隆實業若發現或合理懷疑您個人資料不正確、不慎遺失或遭冒用時，將及時通知您，並停止處理或利用您的個人資料，且暫停該帳號所生交易之處理及後續利用；若您發現或合理懷疑您個人資料不正確、不慎遺失或遭冒用時，您應該立即通知馨隆實業，馨隆實業將採取必要的防範措施並視情況進行調查，但上述通知不代表馨隆實業對會員負有任何形式之賠償或補償的責任。
+                                            網站會員帳號、密碼及安全 馨隆實業將建置符合網路交易需求之安全機制，並告知您該機制之安全程度，以提供您安全的交易平台。
+                                            註冊網站會員資料時，您必須提供一組個人帳號與辨識密碼，且該帳號不可重複登錄。
+                                            您應妥善保管帳號及密碼，並於每次使用後確實登出，以防他人盜用，同時，請勿將您的帳號與密碼洩露或提供予第三人知悉，以免因此遭人非法使用，若您未能保管好帳號及密碼，因此所受之損害，將由您自行承擔。
+                                            關於會員提供資訊
+                                            請您確認上載、傳送、輸入或提供至本網站的資料，都已合法取得授權使用（下稱授權使用，包含但不限修改、重製、公開播送、改作、散佈、發行、公開發表等方式），並可將前述權利轉授權第三人。任何資料一經您上載、傳送、輸入或提供至本網站時，視為您已同意馨隆實業取得您的授權使用，並得將前述權利轉授權他人，您對此絕無異議。您並應保證馨隆實業取得授權使用的內容，均無侵害任何第三人智慧財產權的情形，如果因此造成對馨隆實業的損失或損害，您承諾將對馨隆實業負賠償或補償責任。
+                                            父母或監護人義務
+                                            如您是未滿十二歲的兒童，請確認您的家長或監護人已同意您上網使用本網站並且全程在旁陪伴；如您是十二歲以上未滿十八歲的青少年，當您上網前，請您確認您的家長或監護人已經同意您上網使用本網站。
+                                            資料記錄
+                                            當您使用本網站時，在使用過程中所有的資料紀錄，包括交易資料、付款方式及資訊、寄送地址及收件人資料，均將保存於會員服務資料庫記錄，您同意馨隆實業基於履行上述特定目的之範圍內，蒐集、利用或處理。
+                                            約定條款修改
+                                            會員同意馨隆實業得修改SINLOG網站會員約定條款，並同意馨隆實業於修改後，得以言詞、書面、電話、簡訊、電子郵件、傳真、電子文件或其它足以使會員知悉或可得知悉知方式（包括但不限於以前述方式告知提供詳載會員約定條款內容之網站聯結），告知修改內容及指定網頁。 如您登錄資料或您的行為與上述「會員資料」內容不符或有違反，您同意並瞭解馨隆實業將依此約定條款揭示內容處理，且表示您將自行負擔所有不便及相關法律責任。
+                                            二、網站會員服務
+                                            個人資料保護
+                                            對於會員所登錄或留存之個人資料，馨隆實業及委外與配合之相關廠商都將於公告之特定目的範圍內予以利用，並採取適當之安全措施予以保護，並依目的事業主管機關指定之個人資料檔案安全維護計畫處理，但有下列情形時，不在此限：
+                                            基於法律之規定、或受司法機關與其他有權機關基於法定程序之要求。
+                                            為增進公共利益。
+                                            為免除會員之生命、身體、自由或財產上之危險。
+                                            您的會員資料遭受他人冒用，且為防止會員權益之重大危害。
+                                            為防止他人權益之重大危害。
+                                            經過會員本人書面同意。
+                                            智慧財產權
+                                            馨隆實業所使用之軟體或程式、網站上所有內容，包括但不限於著作、圖片、檔案、資訊、資料、網站架構、網站畫面的安排、網頁設計，均由亞東或其他權利人依法擁有其智慧財產權；請務必於取得馨隆實業及其他權利人書面同意後，才能使用前述資料。
+                                            服務暫停與中斷
+                                            本系統或功能可能因『例行性』之維護、改置或變動發生服務暫停或中斷，馨隆實業將於該暫停或中斷前以電子郵件、公告或其他適當之方式告知會員。
+                                            馨隆實業將以合理之方式及技術，維護會員服務之正常運作。但如有下列任一情況，馨隆實業將逕行暫停或中斷會員服務之全部或一部，且對因此所造成任何不便或損害，均不負任何賠償或補償之責任：
+                                            使用者有任何違反政府法令或本使用條款情形；
+                                            天災或其他不可抗力之因素所導致之服務停止或中斷；
+                                            非馨隆實業所得控制之事由而致會員服務資訊顯示不正確、或遭偽造、竄改、刪除或擷取、或致系統中斷或不能正常運作時； 對會員服務相關軟硬體設備進行搬遷、更換、升級、保養或維修時； 其他不可歸責於馨隆實業之事由所致之服務停止或中斷。
+                                            網站連結
+                                            為方便您自行蒐集或取得資訊，本網站將提供非廣告連結，但此連結並不代表馨隆實業與此類連結網站管理者有任何合夥、僱傭或其他類似關係，其他業者經營的網站性均由各該業者自行負責，馨隆實業對任何的外部連結，不擔保其合適性、有效性、或即時性，且馨隆實業不對連結網站所提供產品、服務或資訊提供擔保或其他責任，請您留意該連結網站之交易及資訊安全性。
+                                            會員服務管理
+                                            如您的會員資料遭受他人冒用、有違反交易安全或本網站會員約定條款等情形時，馨隆實業基於維護交易安全之考量，將終止您的帳號或會員服務之使用，必要時並將您的會員註冊資料會員服務移除或刪除，您瞭解並同意馨隆實業將不對此種不當使用負擔賠償或補償責任。
+                                            馨隆實業可能因網站管理或其他因素，變更或終止部份或全部會員服務或活動，此類變更或終止均將貼示在SINLONG購物網站相關網頁或以其他方式通知，建議您留意此類訊息。
+                                            您可藉由網站服務通知馨隆實業變更會員服務內容或終止會員服務，請注意馨隆實業均將在您接獲電子郵件並回覆確認次日起，對您的會員服務進行變更或終止；在此提醒您，此類變更或終止，可能會使您失去部份或全部的會員優惠或權益，請您謹慎使用。
+
+                                            三、其他
+                                            本約定條款解釋、補充及適用均以中華民國法令為準據法。會員約定條款中任何條款之全部或一部份無效時，不影響其他約定之效力。
+                                            因本條款所發生之訴訟，以台灣台北地方法院為第一審管轄法院。
+                                            四、網站服務及隱私權聲明
+                                            網站使用人登錄成為本網路會員時，敬請注意下列事項：
+                                            請妥善保密您的網路密碼及個人資料，不要將任何個人資料，尤其是網路密碼提供給任何人。在您使用完本網站所提供的各項服務功能後，務必記得登出帳戶，若您是與他人共享電腦或使用公共電腦，切記要關閉瀏覽器視窗。
+                                            我們會保留您在上網瀏覽或查詢時，伺服器自行產生的相關記錄，包括您使用連線設備的 IP位址、使用時間、使用的瀏覽器、瀏覽及點選資料紀錄等。
+                                            本網站可能會使用 cookie 。 Cookies 是伺服端為了區別使用者的不同，經由瀏覽器寫入使用者硬碟的一些簡短資訊。只有原設置 cookie 的網站能讀取其內容。本網站使用 cookies 大多基於輔助作用，例如儲存您偏好的特定種類資料，或儲存相關密碼以方便您上網至馨隆實業網站時不必每次再輸入密碼。Cookie 並不含任何資料足使他人透過電話、電子郵件與您聯絡。您可在您的網站瀏覽器上設定功能以獲知何時 cookies 被記錄或避免 cookies 的設置。
+                                            馨隆實業可能會使用網站或電子郵件中的 beacon 計算使用人次，為相關網站進行資料搜集工作，有關資料也會作統計用途。網站beacon所記錄的會員資料會整合起來，以綜合數據形式供合作伙伴參考。綜合數據會包括人數統計和使用情況等資料，除取得您的同意之外，將不會包含任何可以識別個人身分的資料。如果你不想參與資料搜集工作，可隨時通知馨隆實業。
+                                            隨著市場環境的改變馨隆實業將會不時修訂網站政策。當我們在使用個人資料的規定上作出大修改時，我們會在網頁上張貼告示，通知相關事項。 版本2014.05.30製
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group" style="">
+                                <label for="inputPassword" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-4">
+                                    <div class="checkbox">
+                                        <input type="checkbox" ng-model="checkVal"> 我同意SINLONG購物網網站會員約定條款
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:30px" ng-show="checkVal">
+                                <label for="inputPassword" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-8">
+                                    <input class="btn btn-primary" name="button" type="button" id="button" value="下一步" ng-click="formSubmit()" style="width:23%" />
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine2.js"></script>

@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "產品(Product)";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="../css/front-memberAdd.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+<div ng-controller="memberAddCtrl">
+    <div id="nav">
+        <div id="container">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center"><img src="~/Images/member_add.jpg" width="1100" height="132" /></td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <form id="form1" name="form1" method="post" action="@Url.Action("MemberEdit", "Frontend")" style="margin-top: 20px;">
+                            <table width=" 100%" border="0" cellspacing="0" cellpadding="10"><tr>
+                                    <td width="17%" height="66" align="center" bgcolor="#F2F2F2" class="addtalbe">帳號</td>
+                                    <td width="83%" class="addtalbe">
+                                        <div class="row">
+                                            <div class="col-sm-12" style="margin-top:10px; margin-left:10px">
+                                                <input name="user_email" type="text" id="user_email" size="35" ng-model="email" class="form-control validate[required,custom[email]]"  style="width:25%"/>
+                                                <span class="addfonts">(請輸入E-MAIL為登入帳號)</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="77" align="center" bgcolor="#F2F2F2" class="addtalbe" >密碼</td>
+                                    <td class="addtalbe">
+                                        <div class="row">
+                                            <div class="col-sm-12" style="margin-top: 10px; margin-left: 10px">
+                                                <input name="password" type="password" id="password" size="30" ng-model="ps" class="form-control validate[required,custom[onlyLetterNumber],minSize[6],maxSize[14]]" style="width:25%" />
+                                                <span class="addfonts">(6~14個字元，不得與帳號相同，密碼需為大小寫英文字母或數字。英文大小寫視為不同字元。不可使用符號或空白。)</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="71" align="center" bgcolor="#F2F2F2" class="addtalbe" >再次確認密碼</td>
+                                    <td class="addtalbe">
+                                      <div class="row">
+                                          <div class="col-sm-12" style="margin-left: 10px">
+                                              <input type="password" name="textfield3" id="textfield3" ng-model="ps_confirm" class="form-control validate[required,equals[password]]" style="width:25%" />
+                                          </div>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                    <input class="btn btn-primary"  name="button" type="button" id="button" value="下一步" ng-click="formSubmit()" style="margin-top: 10px; margin-bottom:30px"/> </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>

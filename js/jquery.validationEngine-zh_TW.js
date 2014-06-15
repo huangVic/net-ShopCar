@@ -69,7 +69,7 @@
                 },
                 "equals": {
                     "regex": "none",
-                    "alertText": "* 欄位內容不相符"
+                    "alertText": "* 密碼欄位內容不相符"
                 },
                 "creditCard": {
                     "regex": "none",
@@ -96,7 +96,7 @@
                 },
                 "date": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-                    "alertText": "* 無效的日期，格式必需為 YYYY-MM-DD"
+                    "alertText": "* 無效的日期"
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
@@ -116,7 +116,7 @@
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "* 不接受特殊字元"
+                    "alertText": "* 請輸入英文字母和數字"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
@@ -168,7 +168,7 @@
                     "alertText2": "可接受的格式： ",
                     "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM 或 ", 
                     "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
-	            }
+				}
             };
             
         }

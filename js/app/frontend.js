@@ -26,12 +26,12 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         //console.log(data.classList);
         $scope.classList = data.classList;
 
+        $scope.getProductList(data.classList[0].app_ser);
     });
 
     
     // --------- get product item  --------------//
     $scope.getProductItem = function (productAppSer) {
-        console.log('---->' + productAppSer)
 
         $scope.productItem = [];
         $scope.productFiles = [];
@@ -194,8 +194,6 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         }
     };
 
-    $scope.getProductList(1);
-
 }]);
 
 
@@ -220,3 +218,81 @@ frontendApp.controller('productItemCtrl', ['$scope', '$filter', '$http', functio
 
     });
 }]);
+
+
+
+
+
+/*****************************
+* MemberAdd controller
+*****************************/
+frontendApp.controller('memberAddCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+
+    $("#form1").validationEngine();
+
+    $scope.formSubmit = function () {
+        /*
+        console.log($scope.email);
+        console.log($scope.ps);
+        console.log($scope.ps_confirm);*/
+        if ($("#form1").validationEngine('validate')) {
+
+            $("#form1").submit();
+            /*
+            var po = Math.random()
+            $http({
+                method: 'GET',
+                url: '/Frontend/MemberEmailCheck',
+                cache: false,
+                params: { _po: po, email: $scope.email },
+                headers: { 'Content-Type': 'application/json' }
+            })
+           .success(function (data) {
+               if (data.info == 'ok') {
+                  $("#form1").submit();
+               }
+
+           });  */ 
+        };
+    };
+
+}]);
+
+
+/*****************************
+* MemberEdit controller
+*****************************/
+frontendApp.controller('memberEditCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+
+    $("#form1").validationEngine();
+    $('#BirthDay').datepicker({
+        format: "yyyy/mm/dd",
+        language: "zh-TW",
+        todayHighlight: true
+    });
+
+
+    /*
+    $scope.$watch('checkVal', function () {
+        console.log($scope.checkVal);
+        if ($scope.checkVal) {
+            if ($("#form1").validationEngine('validate')) {
+            }
+        }
+    });
+    */
+
+    
+    $scope.formSubmit = function () {
+
+        if ($("#form1").validationEngine('validate')) {
+            $("#form1").submit();
+        };
+    };
+    
+
+}]);
+
+
+
+

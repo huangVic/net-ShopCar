@@ -1,0 +1,283 @@
+﻿#wrapper {
+	width: 1099px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FFF;
+}
+#wrapper #header {
+	float: left;
+	height: 91px;
+	width: 1099px;
+}
+#wrapper #header #logo {
+	float: left;
+	height: 91px;
+	width: 261px;
+	background-image: url(../images/layout_01.jpg);
+}
+#wrapper #header #menu {
+	float: left;
+	height: 91px;
+	width: 838px;
+}
+#wrapper #header #menu #top {
+	float: left;
+	height: 40px;
+	width: 838px;
+	background-image: url(../images/layout_02.jpg);
+}
+#wrapper #header #menu #menubtn {
+	float: left;
+	height: 51px;
+	width: 838px;
+	background-image: url(../images/layout_04.jpg);
+	background-repeat: repeat-x;
+}
+#wrapper #header #menu #menubtn #btn {
+	background-image: url(../images/layout_04.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+	background-position: left top;
+}
+#wrapper #header #menu #menubtn #btn1 {
+	background-image: url(../images/layout_05.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn1 a {
+	background-image: url(../images/layout_05.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn1 a:hover {
+	background-image: url(../images/layout_over_05.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn2 {
+	background-image: url(../images/layout_06.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn2 a {
+	background-image: url(../images/layout_06.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn2 a:hover {
+	background-image: url(../images/layout_over_06.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn3 {
+	background-image: url(../images/layout_07.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn3 a {
+	background-image: url(../images/layout_07.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn3 a:hover {
+	background-image: url(../images/layout_over_07.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn4 {
+	background-image: url(../images/layout_08.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn4 a {
+	background-image: url(../images/layout_08.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn4 a:hover {
+	background-image: url(../images/layout_over_08.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn5 {
+	background-image: url(../images/layout_09.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn5 a {
+	background-image: url(../images/layout_09.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn5 a:hover {
+	background-image: url(../images/layout_over_09.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn6 {
+	background-image: url(../images/layout_10.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn6 a {
+	background-image: url(../images/layout_10.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #header #menu #menubtn #btn6 a:hover {
+	background-image: url(../images/layout_over_10.jpg);
+	float: left;
+	height: 51px;
+	width: 105px;
+}
+#wrapper #nav {
+	float: left;
+	width: 1099px;
+}
+#wrapper #nav #submenu {
+	float: left;
+	width: 261px;
+}
+#wrapper #nav #submenu #lefttext {
+	float: left;
+	width: 262px;
+	text-align: center;
+	font-size: 12pt;
+	color: #666;
+	line-height: 30px;
+}
+#wrapper #nav #submenu #downimg {
+	float: left;
+	width: 262px;
+}
+body {
+	margin: 0px;
+	padding: 0px;
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-image: url(../images/bg.jpg);
+	background-color: #FFFFFF;
+}
+#wrapper #nav #banner {
+	float: left;
+	height: 224px;
+	width: 837px;
+	background-color: #30C;
+	background-image: url(../images/layout_15.jpg);
+	margin-top: 30px;
+}
+#wrapper #container {
+	float: left;
+	width: 1100px;
+	font-size: 12pt;
+	line-height: 24pt;
+	color: #333;
+}
+#wrapper #flooter {
+	float: left;
+	height: 121px;
+	width: 1099px;
+	background-image: url(../images/layout_21.jpg);
+}
+.t1 {
+	font-size: 12pt;
+	font-weight: bold;
+	color: #035C94;
+}
+.containertitlebg {
+	background-image: url(../images/layout_17.jpg);
+	float: left;
+	height: 47px;
+	width: 797px;
+	font-size: 12pt;
+	color: #FF0;
+	padding-left: 40px;
+	font-weight: bold;
+	letter-spacing: 0.1em;
+	padding-top: 2px;
+	background-repeat: no-repeat;
+}
+.titlebg {
+	background-image: url(../images/suntitlebg.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+	width: 58px;
+	margin: 0px;
+	padding: 0px;
+}
+.titlebg1 {	background-image: url(../images/suntitlebg.jpg);
+	background-repeat: repeat-y;
+}
+.menubg {
+	background-image: url(../images/titlebg.jpg);
+	float: left;
+	height: 25px;
+	width: 204px;
+	font-size: 12pt;
+	color: #FFF;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+a:link {
+	color: #999999;
+	text-decoration: none;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 12pt;
+}
+a:visited {
+	text-decoration: none;
+	color: #999999;
+}
+a:hover {
+	color: #005E94;
+	text-decoration: none;
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+}
+a:active {
+	text-decoration: none;
+}
+a {
+	font-family: "Times New Roman", Times, serif;
+}
+.menubg a:link {
+	font-size: 12pt;
+	color: #FFF;
+	text-decoration: none;
+}
+.menubg a:visited {
+	font-size: 12pt;
+	color: #FFF;
+	text-decoration: none;
+}
+.menubg a:hover {
+	font-size: 12pt;
+	color: #FF0;
+	text-decoration: none;
+}
+.addfonts {
+	font-size: 10pt;
+	color: #666;
+}
+.addtalbe {
+	border: 1px solid #CCC;
+}

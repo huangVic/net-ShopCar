@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "會員帳號管理";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+<link href="../css/emp-list.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+
+<div ng-controller="memberListCtrl">
+    <div class="row">
+        <div class="col-lg-3" style="margin-bottom:15px;">
+            <input type="text" class="form-control" ng-model="search" placeholder="搜尋">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="account in accountist | filter:search">
+                        <td style="line-height:1.8">
+                            <div class="row user-row">
+                                <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1" style="text-align:center">
+                                    <img class="img-circle"
+                                         src="~/images/user-photo.png"
+                                         alt="User Pic">
+                                </div>
+                                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" style="line-height: 28px;">
+                                    <strong>{{account.user_name}} </strong><input type="hidden" name="app_ser" value="{{account.app_ser}}"><br>
+                                    <span class="text-muted" style="margin-top:8px"><i class="fa fa-star"></i>帳號:&nbsp;&nbsp;{{account.user_id}} </span><br>
+                                    <span class="text-muted" style="margin-top:8px"><i class="fa fa-envelope-o"></i>電郵:&nbsp;&nbsp;{{account.email}}</span><br>
+                                    <span class="text-muted" style="margin-top:8px"><i class="fa fa-home"></i>住址:&nbsp;&nbsp;{{account.Address}}</span><br>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="line-height: 28px;">
+                                    <span class="text-muted"><i class="fa fa-calendar"></i>&nbsp;生日:&nbsp;&nbsp;{{account.BirthDay | date:'yyyy/MM/dd'}}</span><br>
+                                    <span class="text-muted"><i class="fa fa-tags"></i>性別:&nbsp;&nbsp;{{account.male}}</span><br>
+                                    <span class="text-muted"><i class="glyphicon glyphicon-phone"></i>&nbsp;&nbsp;手機:&nbsp;&nbsp;&nbsp;{{account.mobile}}</span><br>
+                                    <span class="text-muted"><i class="glyphicon glyphicon-phone-alt"></i>&nbsp;&nbsp;電話:&nbsp;&nbsp;&nbsp;{{account.tel}}&nbsp;&nbsp;{{account.extno?account.extno:''}}</span><br>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 dropdown-user" data-for=".cyruxx">
+                                    <span ng-click="empUpdate(account.app_ser)"><i class="fa fa-pencil-square-o text-muted"></i>修改</span>
+                                    <span ng-click="empDelete(account.user_name, account.user_id, account.app_ser)"><i class="fa fa-trash-o text-muted"></i>刪除</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="myDeleteForm" action="@Url.Action("MemberDelete", "Member")" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">刪除確認</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" style="font-size:16px;">
+                            <label for="inputEmpName">確定刪除：</label>
+                            <label id="label-EmpName">{{userNameInfo}} (帳號: {{userIdInfo}}) 嗎?</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control col-lg-2" id="inputAppSer" name="appSer" value="{{appSerInfo}}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" id="btn-delete-submit">刪除</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal update-->
+    <div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="editForm">
+                <form id="myFormEdit" action="@Url.Action("MemberUpdate", "Member")" method="POST">
+                    <div class="modal-header panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title " id="myModalLabel">修改會員資料</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">會員編號: </label>
+                                    <input class="form-control" id="disabledInput" type="text"  ng-value="appSerUp" disabled >
+                                    <input type="hidden" class="form-control col-lg-2" id="editempAppSer" name="app_ser" ng-value="appSerUp">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">帳號</label>
+                                    <input type="text" class="form-control validate[required]" id="editempId" name="user_id" ng-model="userIdUp">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">姓名</label>
+                                    <input type="text" class="form-control validate[required]" id="editempName" name="user_name" ng-model="userNameUp">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">密碼</label>
+                                    <input type="text" class="form-control validate[required]" id="editemPs" name="user_password" ng-model="userPasswordUp">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">生日</label>
+                                    <input type="text" class="form-control" id="editemBirthDay" name="BirthDay" ng-model="birthDayUp">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">性別</label>
+                                    <input type="text" class="form-control" id="editemMale" name="male" ng-model="maleUp">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">手機</</label>
+                                    <input type="text" class="form-control" id="editMobile" name="mobile" ng-model="mobileUp">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">電子郵件</label>
+                                    <input type="text" class="form-control" id="editEmpEmail" name="email" ng-model="emailUp">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">聯絡電話</</label>
+                                    <input type="text" class="form-control" id="editTel" name="tel" ng-model="telUp">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="inputeditempName">分機</label>
+                                    <input type="text" class="form-control" id="editExtno" name="extno" ng-model="extnoUp">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label for="inputEditEmpEmail">住址</label>
+                            <input type="text" class="form-control" id="editEmpEmail" name="Address" ng-model="addressUp">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="empUpdateHide()">取消</button>
+                        <button type="button" class="btn btn-primary" ng-click="empUpdateSubmit()">修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>

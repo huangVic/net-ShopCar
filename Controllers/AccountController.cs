@@ -212,5 +212,12 @@ namespace ShopCar.Controllers
             return RedirectToAction("EmpList");
         }
 
+
+        // 會員資料頁面
+        public ActionResult MemberList()
+        {
+            return View();
+        }
+
     }
 }

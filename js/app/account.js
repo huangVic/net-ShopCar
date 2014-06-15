@@ -20,7 +20,7 @@ accountApp.controller('NavCtrl', ['$scope','$location', function ($scope, $locat
 }]);
 
 
-
+// 後臺帳號 controller
 accountApp.controller('empListCtrl', ['$scope', '$http', function ($scope, $http) {
 
     var po = Math.random()
@@ -125,7 +125,7 @@ accountApp.controller('empListCtrl', ['$scope', '$http', function ($scope, $http
 }]);
 		
 		
-
+// 後臺管理者帳號新增 controller
 accountApp.controller('empAddCtrl', ['$scope', '$http', function ($scope, $http) {
 
 
@@ -147,3 +147,92 @@ accountApp.controller('empAddCtrl', ['$scope', '$http', function ($scope, $http)
 
 }]);
 
+
+// 會員資料 controller
+accountApp.controller('memberListCtrl', ['$scope', '$http', function ($scope, $http) {
+
+    $('#editemBirthDay').datepicker({
+        format: "yyyy/mm/dd",
+        language: "zh-TW",
+        todayHighlight: true
+    });
+
+    var po = Math.random()
+    console.log('po: ' + po);
+    $http({
+        method: 'GET',
+        url: '/Member/MemberToJsonData',
+        cache: false,
+        params: { _po: po },
+        //data: $.param($scope.formData),  // pass in data as strings
+        headers: { 'Content-Type': 'application/json' }  // set the headers so angular passing info as form data (not request payload)
+    })
+       .success(function (data) {
+           console.log(data.memberItem);
+           $scope.accountist = data.memberItem;
+       });
+
+    //$scope.empRoles = ['管理者', '一般員工'];
+    $("#myFormEdit").validationEngine();
+    
+
+    $scope.empUpdate = function (appSer) {
+        var p1 = Math.random();
+        $http({
+            method: 'GET',
+            url: '/Member/MemberEdit',
+            cache: false,
+            params: { appSer: appSer, _p1: p1 },
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .success(function (account) {
+            console.log(account);
+
+            $scope.appSerUp = account.appSer;
+            $scope.userIdUp = account.user_id;
+            $scope.userNameUp = account.user_name;
+            $scope.userPasswordUp = account.user_password;
+            $scope.birthDayUp = account.birthDay;
+            $scope.maleUp = account.male;
+            $scope.mobileUp = account.mobile;
+            $scope.telUp = account.tel;
+            $scope.extnoUp = account.extno;
+            $scope.addressUp = account.address;
+            $scope.emailUp = account.email;
+         
+            $('#myModalUpdate').modal('show');
+        });
+
+        
+    };
+
+    $scope.empDelete = function (userName, userId, appSer) {
+
+        $scope.userNameInfo = userName;
+        $scope.userIdInfo = userId;
+        $scope.appSerInfo = appSer;
+        $('#myModalDelete').modal('show');
+    };
+
+
+    $scope.empUpdateSubmit = function () {
+
+        if ($("#myFormEdit").validationEngine('validate')) {
+            $("#myFormEdit").submit();
+        };
+    };
+
+    $scope.empUpdateHide = function () {
+        /* $scope.appSerUp = null;
+         $scope.empNameUp = null;
+         $scope.empEmailUp = null;
+         $scope.empTelUp = null;
+         $scope.createDateUp = null;
+         $scope.loginPass = null;
+         $scope.empRole = null;
+         $scope.statusActive = null;
+         */
+        $('#myModalUpdate').validationEngine('hideAll');
+        $('#myModalUpdate').modal('hide');
+    }
+}]);
