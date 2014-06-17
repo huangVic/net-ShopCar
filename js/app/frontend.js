@@ -237,22 +237,24 @@ frontendApp.controller('memberAddCtrl', ['$scope', '$filter', '$http', function 
         console.log($scope.ps_confirm);*/
         if ($("#form1").validationEngine('validate')) {
 
-            $("#form1").submit();
-            /*
+            console.log($scope.email);
+            
             var po = Math.random()
             $http({
                 method: 'GET',
-                url: '/Frontend/MemberEmailCheck',
+                url: '/Frontend/IDExistMember',
                 cache: false,
-                params: { _po: po, email: $scope.email },
+                params: { _po: po, user_id: $scope.email },
                 headers: { 'Content-Type': 'application/json' }
             })
            .success(function (data) {
-               if (data.info == 'ok') {
-                  $("#form1").submit();
+               if (data.message == 'OK') {
+                   $("#form1").submit();
+               } else {
+                   alert(data.message);
                }
 
-           });  */ 
+           }); 
         };
     };
 
