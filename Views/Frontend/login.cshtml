@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "會員登入";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="../css/front-login.css" rel="stylesheet">
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+
+
+<div id="nav">
+    <div id="submenu">
+        <!-- InstanceBeginEditable name="leftmenu" -->
+        <div id="lefttext">
+            <table width="262" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="204" align="left" valign="top">
+                        <table width="204" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="204" align="center" valign="middle" class="menubg"><a href="/Frontend/Login">會員登入</a></td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" class="menubg"><a href="/Frontend/MemberAdd">會員註冊</a></td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                    </td>
+                    <td width="58" align="left" valign="top" class="titlebg"><span class="titlebg1"><img src="~/images/qa_13.jpg" width="58" height="279" /></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="~/images/leftimg3_16.jpg" width="262" height="123" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="~/images/layout_20.jpg" width="261" height="232" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <div id="banner"></div>
+    <!-- InstanceBeginEditable name="container" -->
+    <div id="container">
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <div class="account-box">
+                        <div class="logo ">
+                            會員登入
+                        </div>
+                        <form id="form-signin" class="form-signin" action="@Url.Action("Auth", "Frontend")" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control validate[required,custom[email]]" name="user_id" id="user_id" placeholder="帳號: Email" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control validate[required]" name="user_password" id="user_password" placeholder="密碼: Password" />
+                            </div>
+                            <button class="btn btn-lg btn-block purple-bg" type="submit">
+                                登入
+                            </button>
+                        </form>
+                        <!-- a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
+                        <div class="or-box">
+                            <span class="or">OR</span>
+                            <div class="row">
+                                <div class="col-md-6 row-block">
+                                    <a href="http://www.jquery2dotnet.com" class="btn btn-facebook btn-block">Facebook</a>
+                                </div>
+                                <div class="col-md-6 row-block">
+                                    <a href="http://www.jquery2dotnet.com" class="btn btn-google btn-block">Google</a>
+                                </div>
+                            </div>
+                        </div -->
+                        <div class="or-box row-block">
+                            <div class="row">
+                                <div class="col-md-12 row-block">
+                                    <a href="/Frontend/MemberAdd" class="btn btn-primary btn-block" style="color:#fff">註冊新帳號</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="msg" value="@ViewData.Eval("authMsg")" />
+    </div>
+    <!-- InstanceEndEditable -->
+</div>
+
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>
+<script>
+    $(function(){
+        $("#form-signin").validationEngine();
+        
+    });
+
+    if ($('#msg').val() != "") {
+        alert($('#msg').val());
+    }
+
+</script>

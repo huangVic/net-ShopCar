@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "產品(Product)";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="~/css/validationEngine.jquery.css" rel="stylesheet">
+<link href="../css/front-about.css" rel="stylesheet">
+<style type="text/css">
+    .tableline {
+        border: 1px solid #CCC;
+    }
+</style>
+<div id="nav">
+    <div id="submenu">
+        <!-- InstanceBeginEditable name="leftmenu" -->
+        <div id="lefttext">
+            <table width="262" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="204" align="left" valign="top">
+                        <table width="204" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="204" align="center" valign="middle" class="menubg">客服中心</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                    </td>
+                    <td width="58" align="left" valign="top" class="titlebg"><span class="titlebg1"><img src="../images/contact_13.jpg" width="58" height="279" /></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="../images/leftimg4_16.jpg" width="262" height="123" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="../images/layout_20.jpg" width="261" height="232" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <div id="banner"></div>
+    <!-- InstanceBeginEditable name="container" -->
+    <div id="container">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="containertitlebg">聯絡我們Contactus</td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <blockquote>
+                        <p style="font-size:16px">
+                            若是商品、訂單及帳號任何問題，您可以透過客服專線06-2542173、0928-681-187林小姐
+                            或填寫以下欄位反應問題給客服人員，我們將儘速回覆。
+                        </p>
+                    </blockquote>
+                    <form id="form1" name="form1" method="post" action="/Contact/ConCreate">
+                        <table width="90%" height="305" border="0" align="center" cellpadding="5" cellspacing="0" style="font-size:16px">
+                            <tr>
+                                <td width="20%" align="center" class="tableline">姓名：</td>
+                                <td width="80%" class="tableline">
+                                    <div style="margin:9px">
+                                        <input name="guest_name" type="text" id="guest_name" size="35" class="form-control validate[required]" style="width:50%" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="tableline">電話or手機</td>
+                                <td class="tableline">
+                                    <div style="margin:9px">
+                                        <input name="guest_mobile" type="text" id="guest_mobile" size="35" class="form-control validate[required]" style="width:50%" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="tableline">電子郵件</td>
+                                <td class="tableline">
+                                    <div style="margin:9px">
+                                        <input name="email" type="text" id="email" size="35" class="form-control validate[required,custom[email]]" style="width:50%" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="70" align="center" class="tableline">主題：</td>
+                                <td class="tableline">
+                                    <div style="margin:9px">
+                                        <input name="title" type="text" id="title" size="35" class="form-control validate[required]" style="width:90%" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="93" align="center" class="tableline">問題與建議：</td>
+                                <td class="tableline">
+                                    <div style="margin:9px">
+                                        <textarea name="suggestion" class="form-control validate[required]" rows="7"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <div style="margin:8px">
+                                        <button type="button" id="btn-submit" class="btn btn-primary">送出資料</button>&nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-success">重新填寫</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <blockquote>
+                        <p style="font-size:16px">
+                            <span class="t1">注意事項：</span><br />
+                            1.使用線上客服諮詢，客戶須先登入會員。<br />
+                            2.客戶只須提出相關諮詢問題，客服人員即可協助處理，無須再提供任何個人基本資料。<br />
+                            3.內容中若涉及個人或他人隱私、或不當言辭，本站保有刪除該資料之權利。
+                        </p>
+                    </blockquote>
+                    <input type="hidden"  id="ret_msg" value="@ViewData.Eval("retMsg")" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- InstanceEndEditable -->
+</div>
+
+
+<script src="../../js/jquery.validationEngine-zh_TW.js"></script>
+<script src="../../js/jquery.validationEngine.js"></script>
+<script>
+    $(function () {
+        $("#form1").validationEngine();
+
+        $('#btn-submit').click(function () {
+            if ($("#form1").validationEngine('validate')) {
+                $("#form1").submit();
+            }
+        });
+
+
+    });
+
+    if ($('#ret_msg').val() == "1") {
+        alert('已收到您的留言,我們將儘速回覆,謝謝您的支持!!');
+    }
+
+</script>

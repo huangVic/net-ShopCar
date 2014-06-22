@@ -32,6 +32,148 @@ namespace ShopCar.Controllers
         }
 
 
+        // 會員中心 - 會員中心
+        public ActionResult Member()
+        {
+            System.Diagnostics.Debug.WriteLine(" >>>> Member -------------------------->>>> ");
+
+
+            MemberInfo userInfo = new MemberInfo();
+
+
+            if (Session["app_ser"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine(" >>>>  session user_id --->>>  " + Session["user_id"]);
+                System.Diagnostics.Debug.WriteLine(" >>>>  session user_name --->>>  " + Session["user_name"]);
+                System.Diagnostics.Debug.WriteLine(" >>>>  session app_ser --->>>  " + Session["app_ser"]);
+
+                // 1. 資料庫連線 
+                SqlConnection cn = new SqlConnection(_connectionString);
+
+                // 2. SQL 指令 
+                string sql = "select * from member where app_ser=@app_ser";
+
+                cn.Open();
+                SqlCommand comm = new SqlCommand(sql, cn);
+                comm.Parameters.Clear();
+                comm.Parameters.AddWithValue("@app_ser", wf.tos(Session["app_ser"]));
+
+                SqlDataReader reader = comm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    // 找到會員資料
+                    while (reader.Read())
+                    {
+                         userInfo.app_ser = wf.tos(reader["app_ser"]);
+                         userInfo.user_id = wf.tos(reader["user_id"]);
+                         userInfo.user_name = wf.tos(reader["user_name"]);
+                         userInfo.BirthDay = wf.tos(reader["BirthDay"]);
+                         userInfo.mobile = wf.tos(reader["mobile"]);
+                         userInfo.tel = wf.tos(reader["tel"]);
+                         userInfo.Address = wf.tos(reader["Address"]);
+                         userInfo.email = wf.tos(reader["email"]);
+                    }
+
+                }
+        
+             }
+
+
+            return View(userInfo);
+        }
+
+
+
+        public ActionResult Logout()
+        {
+            Session["user_id"] = null;
+            Session["user_name"] = null;
+            Session["app_ser"] = null;
+
+            return RedirectToAction("Member");
+        }
+
+        // 會員中心 - 會員登入
+        public ActionResult Login(string msg)
+        {
+
+            System.Diagnostics.Debug.WriteLine(" >>>> Login -------------------------->>>> ");
+            System.Diagnostics.Debug.WriteLine(" >>>> msg: " + msg);
+
+            if (msg == null) {
+                msg = "";
+            }
+
+            var userInfo = new
+            {
+                authMsg = wf.tos(msg)
+            };
+
+            return View(userInfo);
+        }
+
+        [HttpPost]
+        // 會員中心 - 會員登入驗證
+        public ActionResult Auth(FormCollection formCollection)
+        {
+            string msg = "";
+
+            System.Diagnostics.Debug.WriteLine(" >>>> Auth -------------------------->>>> ");
+            System.Diagnostics.Debug.WriteLine(" >>>> email: " + formCollection["user_id"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> password: " + formCollection["user_password"]);
+
+            // 1. 資料庫連線 
+            SqlConnection cn = new SqlConnection(_connectionString);
+
+            // 2. SQL 指令 
+            string sql = "select * from member where user_id=@id and user_password=@pwd";
+
+            cn.Open();
+            SqlCommand comm = new SqlCommand(sql, cn);
+            comm.Parameters.Clear();
+            comm.Parameters.AddWithValue("@id", wf.tos(formCollection["user_id"]));
+            comm.Parameters.AddWithValue("@pwd", wf.tos(formCollection["user_password"]));
+
+            SqlDataReader reader = comm.ExecuteReader();
+
+
+            if (reader.HasRows)
+            {
+                // 找到會員資料
+                while (reader.Read())
+                {
+                    Session["user_id"] = reader["user_id"];
+                    Session["user_name"] = reader["user_name"];
+                    Session["app_ser"] = reader["app_ser"]; 
+                }
+
+            }
+            else
+            {
+                // 查無會員資訊
+                msg = "帳號密碼錯誤!!";
+                
+            }
+
+            cn.Close();
+            cn.Dispose();
+
+
+            if (msg != "")
+            {
+                return RedirectToAction("Login", "Frontend", new { msg = msg });
+            }
+            else 
+            {
+                return RedirectToAction("Member");
+            }
+        }
+
+
         // 會員中心 - 新增會員
         public ActionResult MemberAdd()
         {
@@ -148,5 +290,77 @@ namespace ShopCar.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+        // 關於馨隆
+        public ActionResult AboutSinLong()
+        {
+            return View();
+        }
+
+        // 經營理念
+        public ActionResult MissionStatement() 
+        {
+            return View();
+        }
+
+
+        // 最新消息
+        public ActionResult News()
+        {
+            return View();
+        }
+
+
+        // 常見問題 - 會員問題
+        public ActionResult QandA()
+        {
+            return View();
+        }
+
+        // 常見問題 - 訂購問題
+        public ActionResult OrderQa()
+        {
+            return View();
+        }
+
+        // 常見問題 - 付款問題
+        public ActionResult PayingQa()
+        {
+            return View();
+        }
+
+        // 聯絡我們
+        public ActionResult ContactUs(string msg)
+        {
+            System.Diagnostics.Debug.WriteLine(" >>>> ContactUs -------------------------->>>> ");
+            System.Diagnostics.Debug.WriteLine(" >>>> msg: " + msg);
+
+            if (msg == null)
+            {
+                msg = "";
+            }
+
+            var obj = new
+            {
+                retMsg = wf.tos(msg)
+            };
+
+            return View(obj);
+        }
     }
+}
+
+
+public class MemberInfo
+{
+    public string app_ser { get; set; }
+    public string user_id { get; set; }
+     public string user_name { get; set; }
+    public string BirthDay { get; set; }
+    public string mobile { get; set; }
+    public string tel { get; set; }
+    public string Address { get; set; }
+    public string email { get; set; }  
+   
 }

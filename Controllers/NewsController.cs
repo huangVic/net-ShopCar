@@ -26,7 +26,7 @@ namespace ShopCar.Controllers
             Models.ShopCarDatasetTableAdapters.NewsTableAdapter newsadp = new Models.ShopCarDatasetTableAdapters.NewsTableAdapter();
             DataTable dt = newsadp.GetData();
             Hashtable myHT = new Hashtable();
-            myHT.Add("aaData", dt);
+            myHT.Add("newsList", dt);
             string obj_json = JsonConvert.SerializeObject(myHT);
             return Content(obj_json, "application/json");
         }

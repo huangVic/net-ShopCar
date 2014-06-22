@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "會員中心";
+    Layout = "~/Views/Shared/_LayoutFrontend.cshtml";
+}
+<link href="../css/front-about.css" rel="stylesheet">
+
+<div id="nav">
+    <div id="submenu">
+        <!-- InstanceBeginEditable name="leftmenu" -->
+        <div id="lefttext">
+            <table width="262" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="204" align="left" valign="top">
+                        <table width="204" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" valign="middle">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="204" align="center" valign="middle" class="menubg"><a href="/Frontend/Member">會員中心</a></td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" class="menubg"><a href="/Frontend/Logout">會員登出</a></td>
+                            </tr>
+                            <tr>
+                                <td align="left" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle"><p>&nbsp;</p></td>
+                            </tr>
+                        </table>
+                        <p>&nbsp;</p>
+                    </td>
+                    <td width="58" align="left" valign="top" class="titlebg"><span class="titlebg1"><img src="~/images/qa_13.jpg" width="58" height="279" /></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="~/images/leftimg3_16.jpg" width="262" height="123" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right" valign="top"><img src="~/images/layout_20.jpg" width="261" height="232" /></td>
+                </tr>
+            </table>
+        </div>
+        <!-- InstanceEndEditable -->
+    </div>
+    <div id="banner"></div>
+    <!-- InstanceBeginEditable name="container" -->
+    <div id="container">
+        <div class="alert alert-info" style="padding: 0px 20px; margin: 0px 25px;">會員中心</div>
+       <div class="row" style="font-family: 'Microsoft JhengHei'; margin-top: 20px;">
+           <div class="col-md-3" style="text-align: right;margin-top: 20px;">
+               <img class="img-circle" src="~/images/user-photo.png"   alt="User Pic" style="height: 80px; width: 80px;">
+           </div>
+           <div class="col-md-9">
+               <form class="form-horizontal" role="form">
+                   <div class="form-group">
+                       <label for="inputEmail3" class="col-sm-2 control-label">帳號</label>
+                       <div class="col-sm-8" style="padding-top:7px">
+                           @ViewData.Eval("user_id")
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputPassword3" class="col-sm-2 control-label">連絡電話</label>
+                       <div class="col-sm-8" style="padding-top:7px">
+                           @ViewData.Eval("tel")
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputPassword3" class="col-sm-2 control-label">手機</label>
+                       <div class="col-sm-8" style="padding-top:7px">
+                           @ViewData.Eval("mobile")
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputPassword3" class="col-sm-2 control-label">電子郵件</label>
+                       <div class="col-sm-8" style="padding-top:7px">
+                           @ViewData.Eval("email")
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="inputPassword3" class="col-sm-2 control-label">地址</label>
+                       <div class="col-sm-8" style="padding-top:7px">
+                           @ViewData.Eval("Address")
+                       </div>
+                   </div>
+               </form>
+           </div>
+    </div>
+    <!-- InstanceEndEditable -->
+</div>

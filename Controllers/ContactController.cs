@@ -59,6 +59,7 @@ namespace ShopCar.Controllers
         public ActionResult ConCreate(FormCollection formCollection)
         {
 
+            string msg = "";
 
             // 2. 寫入資料表
             //----> 程式碼 
@@ -72,9 +73,15 @@ namespace ShopCar.Controllers
             ret_app_ser = Convert.ToInt32(conadp.InsertContactData(formCollection["guest_name"], formCollection["guest_mobile"], formCollection["email"], formCollection["title"], formCollection["suggestion"]));
 
 
-            // 3. 使用物件 儲存起來回丟給前端 ProEdit.cshtml  
+            // 3.  
+
+            if (wf.toi(ret_app_ser) > 0)
+            {
+                msg = "1";
+            }
 
 
+            /**
             var ConItem = new
             {
                 appSer = ret_app_ser,
@@ -84,9 +91,10 @@ namespace ShopCar.Controllers
                 title = formCollection["title"],
                 suggestion = formCollection["suggestion"]
             };
+             */
 
-
-            return View("ConShow", ConItem);
+            return RedirectToAction("ContactUs", "Frontend", new { msg = msg });
+            //return View("ConShow", ConItem);
         }
 
 

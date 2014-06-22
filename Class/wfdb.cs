@@ -17,7 +17,13 @@ namespace ShopCar.Class
             }
             else
             {
-                return data.ToString().Trim();
+                if (data == null) 
+                {
+                    return "";
+                }
+                else { 
+                   return data.ToString().Trim();
+                }
             }
         
         }
@@ -55,6 +61,7 @@ namespace ShopCar.Class
         // base64 解碼
         public string base64Decode(string data)
         {
+            System.Diagnostics.Debug.WriteLine(" >>>> base64Decode: " + data);
             try
             {
                 System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
