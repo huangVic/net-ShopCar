@@ -17,7 +17,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
     // ------- class list ----------//
     $http({
         method: 'GET',
-        url: '/Product/GetProClassList',
+        url: '/Frontend/GetProClassList',
         cache: false,
         params: { _po: po },
         headers: { 'Content-Type': 'application/json' } 
@@ -45,7 +45,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         
         $http({
             method: 'GET',
-            url: '/Product/getProductData',
+            url: '/Frontend/getProductData',
             cache: false,
             params: { _po: oo, appSer: productAppSer },
             headers: { 'Content-Type': 'application/json' }
@@ -83,7 +83,7 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         if (classAppSer) {
             $http({
                 method: 'GET',
-                url: '/Product/ClassToActiveProductData',
+                url: '/Frontend/ClassToActiveProductData',
                 cache: false,
                 params: { _po: p1, classAppSer: classAppSer },
                 headers: { 'Content-Type': 'application/json' }
@@ -321,7 +321,7 @@ frontendApp.controller('newsListCtrl', ['$scope', '$filter', '$http', function (
     var po = Math.random()
     $http({
         method: 'GET',
-        url: '/News/NewsToJsonData',
+        url: '/Frontend/NewsToJsonData',
         cache: false,
         params: { _po: po },
         headers: { 'Content-Type': 'application/json' }

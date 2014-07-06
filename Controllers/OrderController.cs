@@ -7,9 +7,11 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using ShopCar.Filters;
 
 namespace ShopCar.Controllers
 {
+    [WebAuthorizeFilter(AuthFlag = true)]
     public class OrderController : Controller
     {
         private ShopCar.Class.wfdb wf = new ShopCar.Class.wfdb();

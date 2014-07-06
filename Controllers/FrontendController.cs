@@ -10,10 +10,11 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using ShopCar.Filters;
 
 namespace ShopCar.Controllers
 {
+    [WebAuthorizeFilter(AuthFlag = false)]
     public class FrontendController : Controller
     {
         
@@ -347,6 +348,159 @@ namespace ShopCar.Controllers
             };
 
             return View(obj);
+        }
+
+
+
+
+
+        // 產品分類資料
+        public ActionResult GetProClassList()
+        {
+
+
+            // 1. 取得所有分類
+            //----->
+            Models.ShopCarDatasetTableAdapters.Product_ClassTableAdapter classadp = new Models.ShopCarDatasetTableAdapters.Product_ClassTableAdapter();
+            DataTable dt = classadp.GetData();
+
+            // 2. 將資料塞到 arraylist
+            ArrayList list = new ArrayList();
+
+            foreach (DataRow drow in dt.Rows)
+            {
+                var prodClass = new
+                {
+                    app_ser = wf.tos(drow["app_ser"]),
+                    pro_class_no = wf.tos(drow["pro_class_no"]),
+                    pro_class_name = wf.tos(drow["pro_class_name"]),
+                    pro_class_desc = wf.tos(drow["pro_class_desc"]),
+                    class_active = wf.tos(drow["class_active"])
+                };
+                list.Add(prodClass);
+
+            }
+
+            // 3. 將 arraylist 放到Hashtable
+            Hashtable myHT = new Hashtable();
+            myHT.Add("classList", list);
+
+            // 3. 回傳json
+            return Json(myHT, JsonRequestBehavior.AllowGet);
+        }
+
+
+        // 取得某產品分類下所有被啟用的產品列表 Api
+        public ActionResult getProductData(string appSer)
+        {
+            System.Diagnostics.Debug.WriteLine("[Get] GetProductData AppSer >>> " + appSer);
+
+            // 將 arrayList 掛到 files 底下, 並轉成json回傳前端
+            Hashtable myHT = new Hashtable();
+
+            // 1. 先撈資料庫 File Table 的資料 (SQL)
+            //----> 程式碼 
+            Models.ShopCarDatasetTableAdapters.Product_PhotoTableAdapter photoadp = new Models.ShopCarDatasetTableAdapters.Product_PhotoTableAdapter();
+            DataTable dt = photoadp.GetPhotoList(Convert.ToInt32(appSer));
+
+
+            ArrayList list = new ArrayList();
+            // 2. 使用迴圈將每一筆 row 取出
+            foreach (DataRow drow in dt.Rows)
+            {
+                var fileItem = new ViewDataUploadFilesResult();
+                fileItem.name = wf.tos(drow["file_name"]);
+                fileItem.size = wf.toi(drow["file_size"]);
+                fileItem.contentType = wf.tos(drow["content_type"]);
+                fileItem.url = wf.tos(drow["download_url"]);
+                fileItem.deleteUrl = wf.tos(drow["delete_url"]); //"/Product/Delete?id=" + appSer; // file table的 App_Ser
+                // fileItem.thumbnailUrl = @"data:image/png;base64," + EncodeFile(wf.tos(drow["thumbnail_url"]));
+                fileItem.deleteType = wf.tos(drow["delete_type"]);
+                list.Add(fileItem);
+            }
+            myHT.Add("files", list);
+
+
+            // 1. 資料庫連線 
+            SqlConnection cn = new SqlConnection(_connectionString);
+
+            // 2. SQL 指令 
+            string sql = "select a.app_ser,a.ProductID as prod_no,a.ProName as prod_name,a.pro_desc as prod_desc, a.prod_price, a.prod_special_price, a.prod_feature, b.pro_class_name from product a left join Product_Class b on a.prod_class_id=b.app_ser where a.pro_active='on' and a.app_ser=@id";
+            //string sql = "select app_ser,ProductID,ProName,'' as prod_desc,SalePrice,'' as prod_special_price,'' as prod_feature,'' as prod_class from product";
+            cn.Open();
+            SqlCommand comm = new SqlCommand(sql, cn);
+            comm.Parameters.Clear();
+            comm.Parameters.AddWithValue("@id", appSer);
+
+
+            // 2. SqlDataAdapter & DataSet 
+            DataSet ds = new DataSet();
+            using (cn)
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(comm);
+                adapter.Fill(ds);
+                DataTable myDataTable = ds.Tables[0];
+                cn.Close();
+                cn.Dispose();
+
+                myHT.Add("productItem", myDataTable);
+
+                string obj_json = JsonConvert.SerializeObject(myHT);
+                return Content(obj_json, "application/json");
+
+            }
+        }
+
+        // 取得某產品分類下所有被啟用的產品列表 Api
+        public ActionResult ClassToActiveProductData(int classAppSer)
+        {
+
+            if (Convert.IsDBNull(classAppSer))
+            {
+                classAppSer = 1;
+            }
+
+            // 1. 資料庫連線 
+            SqlConnection cn = new SqlConnection(_connectionString);
+
+            // 2. SQL 指令 
+            string sql = "select a.app_ser,a.ProductID as prod_no,a.ProName as prod_name,a.pro_desc as prod_desc, a.prod_price,a.prod_special_price,a.prod_feature,isnull((select top 1 download_url from ShopCar.dbo.Product_Photo c where a.app_ser=c.app_ser),'') as download_url from product a left join Product_Class b on a.prod_class_id=b.app_ser where a.pro_active='on' and b.app_ser=@id";
+            //string sql = "select app_ser,ProductID,ProName,'' as prod_desc,SalePrice,'' as prod_special_price,'' as prod_feature,'' as prod_class from product";
+            cn.Open();
+            SqlCommand comm = new SqlCommand(sql, cn);
+            comm.Parameters.Clear();
+            comm.Parameters.AddWithValue("@id", classAppSer);
+
+
+            // 2. SqlDataAdapter & DataSet 
+            DataSet ds = new DataSet();
+            using (cn)
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(comm);
+                adapter.Fill(ds);
+                DataTable myDataTable = ds.Tables[0];
+                cn.Close();
+                cn.Dispose();
+                //Models.ShopCarDatasetTableAdapters.ProductTableAdapter proadp = new Models.ShopCarDatasetTableAdapters.ProductTableAdapter();
+                //DataTable table = proadp.GetData();
+                Hashtable myHT = new Hashtable();
+                myHT.Add("productList", myDataTable);
+                string obj_json = JsonConvert.SerializeObject(myHT);
+                return Content(obj_json, "application/json");
+
+            }
+        }
+
+
+
+        public ActionResult NewsToJsonData()
+        {
+            Models.ShopCarDatasetTableAdapters.NewsTableAdapter newsadp = new Models.ShopCarDatasetTableAdapters.NewsTableAdapter();
+            DataTable dt = newsadp.GetData();
+            Hashtable myHT = new Hashtable();
+            myHT.Add("newsList", dt);
+            string obj_json = JsonConvert.SerializeObject(myHT);
+            return Content(obj_json, "application/json");
         }
     }
 }

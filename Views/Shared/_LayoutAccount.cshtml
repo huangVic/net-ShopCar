@@ -56,6 +56,12 @@
     <![endif]-->
 
 </head>
+@{
+    string emp_name = (Session["emp_name"] == null) ? "" : Session["emp_name"].ToString();
+    string emp_ser = (Session["emp_ser"] == null) ? "" : Session["emp_ser"].ToString();
+    string emp_email = (Session["emp_email"] == null) ? "" : Session["emp_email"].ToString();
+
+}
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -73,7 +79,21 @@
                     <li id="title-nav-product"><a href="/Product/ProList"><i class="fa fa-inbox"></i> 產品櫥窗</a></li>
                     <li id="title-nav-account"><a href="/Order/OrderList"><i class="fa fa-file-text-o"></i> 訂單管理</a></li>
                     <li id="title-nav-account" class="active"><a href="/Account/EmpList"><i class="fa fa-user"></i> 帳號管理</a></li>
-                    <li id="title-nav-logout"><a href="#"><i class="fa fa-power-off"></i> 登出</a></li>
+                    <li id="title-nav-logout">
+                        <div class="dropdown" style="padding: 15px 25px 0px 20px">
+                            <a href="" onclick="return false;" id="dropdownMenu1" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-align-justify"></span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="padding: 15px 0; margin: 10px 0 0;">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">帳號： @emp_name</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">郵件： @emp_email</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">序號： @emp_ser</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="/Auth/Logout"><i class="fa fa-power-off"></i> 登出</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -82,9 +102,9 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar" ng-controller="NavCtrl">
-                    <li id="nav-list" ng-class="navClass('MemberList')"><a href="/Member/MemberList"><i class="glyphicon glyphicon-user"></i> 會員資料管理</a></li>
-                    <li id="nav-list" ng-class="navClass('EmpList')"><a href="/Account/EmpList" ><i class="fa fa-th-list"></i> 後台登入管理</a></li>
-                    <li id="nav-add" ng-class="navClass('EmpAdd')"><a href="/Account/EmpAdd"><i class="fa fa-plus-square"></i> 新增後台帳號</a></li>
+                    <li id="nav-list" ng-class="navClass('MemberList')"><a href="/Member/MemberList"><i class="glyphicon glyphicon-user"></i> &nbsp;會員資料管理</a></li>
+                    <li id="nav-list" ng-class="navClass('EmpList')"><a href="/Account/EmpList" ><i class="glyphicon glyphicon-globe"></i> &nbsp;後台帳號管理</a></li>
+                    <li id="nav-add" ng-class="navClass('EmpAdd')"><a href="/Account/EmpAdd"><i class="fa fa-plus-square"></i> &nbsp;新增後台帳號</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

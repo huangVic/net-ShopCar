@@ -10,9 +10,11 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using ShopCar.Filters;
 
 namespace ShopCar.Controllers
 {
+    [WebAuthorizeFilter(AuthFlag = true)]
     public class ContactController : Controller
     {
        
