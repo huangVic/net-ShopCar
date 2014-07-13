@@ -11,19 +11,70 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using ShopCar.Filters;
+using ShopCar.Models;
+using ShopCar.Mongodb;
 
 namespace ShopCar.Controllers
 {
     [WebAuthorizeFilter(AuthFlag = false)]
-    public class FrontendController : Controller
+    public class FrontendController : Controller, IDisposable
     {
         
         private string _connectionString = ConfigurationManager.ConnectionStrings["ShopCarConnectionString"].ConnectionString;
-        
         private ShopCar.Class.wfdb wf = new ShopCar.Class.wfdb();
 
+        private Dao mongoDao = new Dao();
+        private bool disposed = false;
+
+
         //
-        // GET: /Frontend/
+        // GET: /mongoDao/
+
+        public ActionResult getPreOrderList()
+        {
+
+            Hashtable myHT = new Hashtable();
+            myHT.Add("preOrderList", mongoDao.GetAllPreOder());
+            string obj_json = JsonConvert.SerializeObject(myHT);
+            return Content(obj_json, "application/json");
+        }
+
+        [HttpPost]
+        // 加入購物車
+        public ActionResult addProductToCar(FormCollection formCollection)
+        {
+            System.Diagnostics.Debug.WriteLine(" >>>> addProductToCar -------------------------->>>> ");
+            System.Diagnostics.Debug.WriteLine(" >>>> app_ser: " + formCollection["app_ser"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> pro_class_name: " + formCollection["pro_class_name"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_desc: " + formCollection["prod_desc"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_feature: " + formCollection["prod_feature"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_name: " + formCollection["prod_name"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_no: " + formCollection["prod_no"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_price: " + formCollection["prod_price"]);
+            System.Diagnostics.Debug.WriteLine(" >>>> prod_special_price: " + formCollection["prod_special_price"]);
+
+            PreOrderModel pom = new PreOrderModel();
+            pom.app_ser = wf.toi(formCollection["app_ser"]);
+            pom.pro_class_name = wf.tos(formCollection["pro_class_name"]);
+            pom.prod_desc = wf.tos(formCollection["prod_desc"]);
+            pom.prod_feature = wf.tos(formCollection["prod_feature"]);
+            pom.prod_name = wf.tos(formCollection["prod_name"]);
+            pom.prod_no = wf.tos(formCollection["prod_no"]);
+            pom.prod_price = wf.toi(formCollection["prod_price"]);
+            pom.prod_special_price = wf.toi(formCollection["prod_special_price"]);
+            pom.create_date = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            pom.update_date = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            pom.user_app_ser = wf.toi(Session["app_ser"]);
+            pom.user_id = wf.tos(Session["user_id"]);
+            pom.user_name = wf.tos(Session["user_name"]);
+
+            mongoDao.CreatePreOrder(pom);
+
+            Hashtable myHT = new Hashtable();
+            myHT.Add("preOrderList", mongoDao.GetAllPreOder());
+            string obj_json = JsonConvert.SerializeObject(myHT);
+            return Content(obj_json, "application/json");
+        }
 
 
         // 產品介紹
@@ -397,6 +448,15 @@ namespace ShopCar.Controllers
 
             // 將 arrayList 掛到 files 底下, 並轉成json回傳前端
             Hashtable myHT = new Hashtable();
+
+
+            var userInfo = new
+            {
+                user_id= wf.tos(Session["user_id"]),
+                user_name = wf.tos(Session["user_name"]),
+                app_ser = wf.tos(Session["app_ser"])
+            };
+            myHT.Add("userInfo", userInfo);
 
             // 1. 先撈資料庫 File Table 的資料 (SQL)
             //----> 程式碼 

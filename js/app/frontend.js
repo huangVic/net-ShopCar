@@ -53,12 +53,67 @@ frontendApp.controller('productListCtrl', ['$scope', '$filter', '$http', functio
         .success(function (data) {
             $scope.productItem = data.productItem;
             $scope.productFiles = data.files;
+            $scope.userInfo = data.userInfo;
             $scope.prodFeature = data.productItem[0].prod_feature.replace(/\r\n/g, "<br />")
             $scope.prodDesc = data.productItem[0].prod_desc.replace(/\r\n/g, "<br />")
         });
 
 
     };
+
+
+    // --------- add product item to shopCar --------------//
+    $scope.addToCar = function() {
+
+        console.log("------- add to Car ----- ");
+        console.log("  >>> app_ser " + $scope.productItem[0].app_ser);
+        console.log("  >>> prod_no " + $scope.productItem[0].prod_no);
+        console.log("  >>> prod_name " + $scope.productItem[0].prod_name);
+
+        console.log("------- user info ----- ");
+        console.log("  >>> user_id " + $scope.userInfo.user_id);
+        console.log("  >>> user_name " + $scope.userInfo.user_name);
+        console.log("  >>> user_app_ser " + $scope.userInfo.app_ser);
+
+        
+
+        if ($scope.userInfo.user_id == "" || $scope.userInfo.app_ser ==""){
+            alert("請先登入會員或註冊新會員!!");
+        }else{
+            $.post('/Frontend/addProductToCar', $scope.productItem[0]).success(function (data) {
+                console.log("------- preOrderList in Car ----- ");
+                $(".cart-detail").find("li").remove();
+                var total = 0;
+                $.each(data.preOrderList, function (i, val) {
+                    var price = val.prod_price;
+                    if (val.prod_special_price > 0) { price = val.prod_special_price };
+                    total += price;
+                    $(".cart-detail").append('<li>' + val.prod_name + ' (' + val.prod_no + ')' + '&nbsp;&nbsp;&nbsp;&nbsp; $' + new Intl.NumberFormat("en-US").format(price) + '</li>');
+                });
+                $('#cart-total').text('$ ' + new Intl.NumberFormat("en-US").format(total));
+            });
+        }
+
+
+        /*
+        $http({
+            method: 'POST',
+            url: '/Frontend/addProductToCar',
+            cache: false,
+            data: { app_ser: $scope.productItem[0].app_ser, prod_no: $scope.productItem[0].prod_no, prod_name: $scope.productItem[0].prod_name },
+           // headers: { 'Content-Type': 'application/json' }
+        })
+       .success(function (data) {
+
+
+           console.log("------- preOrderList in Car ----- ");
+           console.log("  >>> app_ser " + data.preOrderList[0].app_ser);
+           console.log("  >>> product_id " + data.preOrderList[0].product_id);
+           console.log("  >>> prod_name " + data.preOrderList[0].product_name);
+
+       });
+       */
+    }
 
     
 
@@ -467,7 +522,7 @@ frontendApp.controller('newsListCtrl', ['$scope', '$filter', '$http', function (
 
 
 
-orderApp.directive("customSort", function () {
+frontendApp.directive("customSort", function () {
     return {
         restrict: 'A',
         transclude: true,

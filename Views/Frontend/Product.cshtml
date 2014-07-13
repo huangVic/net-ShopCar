@@ -117,7 +117,15 @@
                                     <br/><span class="label label-danger" style="padding:5px 7px;font-size:14px"> NT $ {{productItem[0].prod_special_price?productItem[0].prod_special_price:productItem[0].prod_price}}</span><br />
                                     <div ng-bind-html="prodFeature"></div>
                                 </p>
+                                <div class="row">
+                                  <div class="col-md-12" style="text-align:right">
+                                      <button type="button" id="btn-submit" class="btn btn-success" ng-click="addToCar()">加入購物車</button>
+                                  </div>    
+                                </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="2" align="left" class="titlebg1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="t1">商品內容介紹</span></td>
@@ -138,4 +146,3 @@
         </table>
     </div>
 </div>
-

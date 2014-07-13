@@ -28,6 +28,7 @@
     <noscript><link rel="stylesheet" href="~/css/jquery.fileupload-ui-noscript.css"></noscript>
 
     <link href="../css/front-about.css" rel="stylesheet">
+    <link href="../css/svbtle.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -76,6 +77,67 @@
     </div>
 
 
+
+
+
+<!-- 購物車 -->
+    <nav class="animate" style=" font-family: 'Maven Pro', sans-serif;">
+        <p><h4><strong>購物車</strong></h4></p>
+        <div class="divider"></div>
+        <ul class="cart-detail">
+        </ul>
+        <div class="divider"></div>
+        <p><h4><strong>總計</strong></h4>(新台幣)</p>
+        <ul>
+            <li style="color:red; font-size:22px;font-weight:900" id="cart-total">$ 3,010</li>
+        </ul>
+        <p style="margin-top:30px;font-size:20px"><span class="label label-success" style="font-weight: 200;">結帳</span></p>
+    </nav>
+
+    <div class="nav-controller" style=" font-family: 'Maven Pro', sans-serif;">
+        <span class="glyphicon glyphicon-shopping-cart controller-open"></span>
+        <span class="glyphicon glyphicon-remove controller-close"></span>
+    </div>
+
+    <script>
+
+        $(function () {
+
+            $.ajax({
+                url: "/Frontend/getPreOrderList",
+                type: "GET",
+                dataType: 'json',
+                cache: false,
+                success: function (items) {
+                    $(".cart-detail").find("li").remove();
+                    var total = 0;
+                    $.each(items.preOrderList, function (i, val) {
+                            var price = val.prod_price;
+                            if (val.prod_special_price > 0) { price = val.prod_special_price };
+                            total += price;
+                            $(".cart-detail").append('<li>' + val.prod_name + ' (' + val.prod_no + ')' + '&nbsp;&nbsp;&nbsp;&nbsp; $' + new Intl.NumberFormat("en-US").format(price) + '</li>');
+                    });
+                    $('#cart-total').text('$ ' + new Intl.NumberFormat("en-US").format(total));
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+
+
+
+            $('nav, .nav-controller').on('click', function (event) {
+                $('nav').toggleClass('focus');
+            });
+
+            $('nav, .nav-controller').on('mouseover', function (event) {
+                $('nav').addClass('focus');
+            }).on('mouseout', function (event) {
+                $('nav').removeClass('focus');
+            })
+        })
+    </script>
 
 </body>
 </html>

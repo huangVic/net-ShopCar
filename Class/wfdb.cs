@@ -37,7 +37,22 @@ namespace ShopCar.Class
             }
             else
             {
-                return Convert.ToInt32(data);
+                if (data == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (tos(data) == "")
+                    {
+                        return 0;
+                    }
+                    else 
+                    { 
+                      return Convert.ToInt32(data);
+                    }
+                }
+               
             }
 
         }
